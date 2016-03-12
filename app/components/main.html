@@ -1,0 +1,60 @@
+<div layout="column" ng-cloak style="height:100%;">
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left"
+					md-component-id="left"
+					md-is-locked-open="true"
+					md-disable-backdrop
+					md-whiteframe="4">
+
+			<md-toolbar style="background-color: #0277BD;">
+				<img src="https://avatars0.githubusercontent.com/u/139426?v=3&s=400" 
+					 style="margin: auto; height: auto;">
+			</md-toolbar>
+
+			<md-content layout-padding >
+				<md-list-item ng-click="navigateTo('main.form')">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
+					<p>產品入庫</p>
+				</md-list-item>
+				<md-list-item ng-click="navigateTo('main.dashboard')">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
+					<p>面板</p>
+				</md-list-item>
+				<md-list-item ng-click="navigateTo('main.dashboard')">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
+					<p>功能3</p>
+				</md-list-item>
+				<md-list-item ng-click="navigateTo('main.dashboard')">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
+					<p>功能4</p>
+				</md-list-item>
+				<md-list-item ng-click="navigateTo('main.dashboard')">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/log-out.svg"></md-icon>
+					<p>退出</p>
+				</md-list-item>
+			</md-content>
+
+		</md-sidenav>
+
+		<md-content flex class="background">
+			<!-- <div layout="column" layout-fill>
+				<md-toolbar fix>
+					<div class="md-toolbar-tools">
+					 	<md-button class="md-icon-button" aria-label="Settings">
+				          <md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
+				        </md-button>
+						<span>My App's Title</span>
+						<span flex></span>
+						<md-button>
+							Right Bar Button
+						</md-button>
+					</div>
+				</md-toolbar> -->
+				<md-content class="background">
+					<ui-view class="background anim-in-out anim-fade" data-anim-speed="1000"></ui-view>
+				</md-content>
+			</div>
+		</md-content>
+	</section>
+</div>
+

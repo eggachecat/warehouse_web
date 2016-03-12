@@ -1,0 +1,24 @@
+{
+  "name": "SE",
+  "version": "0.0.0",
+  "authors": [
+    "sunao <sunao_0626@hotmail.com>"
+  ],
+  "description": "This is a project",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~1.0.6",
+    "angular-ui-router": "~0.2.18",
+    "angularfire": "~1.1.4",
+    "firebase": "~2.4.1",
+    "ionicons": "~2.0.1",
+    "angular-ui-router-anim-in-out": "~1.0.2"
+  }
+}
