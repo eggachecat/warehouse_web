@@ -24,9 +24,9 @@
 					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
 					<p>功能3</p>
 				</md-list-item>
-				<md-list-item ng-click="navigateTo('main.dashboard')">
+				<md-list-item restricted-area access="role-admin" ng-click="navigateTo('main.dashboard')">
 					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
-					<p>功能4</p>
+					<p>帳號管理</p>
 				</md-list-item>
 				<md-list-item ng-click="navigateTo('main.dashboard')">
 					<md-icon md-svg-icon="./bower_components/ionicons/src/log-out.svg"></md-icon>

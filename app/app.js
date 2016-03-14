@@ -7,6 +7,12 @@ app.constant('API_ENDPOINT', {
   url: 'http://localhost:8080/api'
 });
 
+app.constant('AUTH_ROLES', {
+	admin: 'role-admin',
+	normal: 'role-normal',
+	guest: 'role-guest'
+});
+
 app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$locationProvider', '$httpProvider', 
 	function($stateProvider, $urlRouterProvider, $mdThemingProvider, $locationProvider, $httpProvider) {
 
@@ -57,7 +63,7 @@ app.controller('NavCtrl', ['$scope', "$state", function($scope, $state){
 }])
 
 
-app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS, AUTH_ROLES) {
 	$rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
 		// if (!AuthService.isAuthenticated()) {
 		// 	console.log(next.name);
@@ -65,6 +71,10 @@ app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
 		// 		event.preventDefault();
 		// 		$state.go('login');
 		// 	}
+		// }
+		// if(AuthService.authoRole !== AUTH_ROLES.admin){
+		// 		event.preventDefault();
+		// 		$state.go('login');
 		// }
 	});
 });
