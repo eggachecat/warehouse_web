@@ -98,7 +98,9 @@ app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   };
 })
  
-
+app.service('barcodeService', ['', function(){
+	
+}])
 
 
 

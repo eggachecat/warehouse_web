@@ -40,10 +40,15 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 		    	controller: "NavCtrl",
 		    	templateUrl: "./app/components/main.html",
 		    })
-		    .state('main.form', {
-				url: "/form",
-				controller: "FormCtrl",
-				templateUrl: "./app/components/form/form.html"
+		    .state('main.enter', {
+				url: "/enterwarehouse",
+				controller: "EnterCtrl",
+				templateUrl: "./app/components/enter/enter.html"
+		    })
+		    .state('main.order', {
+				url: "/order",
+				controller: "OrderCtrl",
+				templateUrl: "./app/components/order/order.html"
 		    })
 		    .state('main.dashboard', {
 				url: "/dash",
@@ -52,13 +57,18 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 		    })
 	}
 ])
-app.controller('NavCtrl', ['$scope', "$state", function($scope, $state){
+app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $state, AuthService){
 	$scope.navigateTo = function(stateName, obj){
 		if(obj == null || obj == undefined){
 			$state.go(stateName);
 		} else {
 			$state.go(stateName, obj);
 		}
+	}
+
+	$scope.logout = function(){
+		AuthService.logout();
+		$state.go("login");
 	}
 }])
 

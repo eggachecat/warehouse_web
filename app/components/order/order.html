@@ -1,4 +1,4 @@
-<div ng-controller="FormCtrl" ng-cloak="" 
+<div ng-cloak="" 
      layout="column" class="md-inline-form inputdemoBasicUsage" 
      style="width: 864px; 
             margin: auto;
@@ -6,7 +6,7 @@
 
   <md-toolbar class="light-blue">
     <h2 class="md-toolbar-tools">
-      <span>庫存入庫信息</span>
+      <span>訂單信息</span>
       <span flex></span>
       <md-button  class="md-raised md-warn" 
                 ng-click="generateBarcode()"
@@ -18,58 +18,58 @@
   <md-content layout-padding="" 
               style="border-width: 0px 2px 2px 2px; 
                      border-style: solid;
+                     overflow: hidden;
                      border-color: #3F51B5;">
     <form name="userForm">
       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>編輯人員代號</label>
-          <input ng-model="editor">
+          <input ng-model="order.editorId">
         </md-input-container>
+
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>存放位置</label>
-          <input ng-model="good.location" required>
+          <label>公司料號</label>
+          <input ng-model="order.companyId">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>客戶料號</label>
+          <input ng-model="order.customerId">
         </md-input-container>
       </div>
 
 
-      <div layout-gt-xs="row">
+      <div layout-gt-xs="row"> 
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>貨品編號</label>
-          <input ng-model="good.id" required>
+          <label>備註</label>
+          <input ng-model="order.remark" required>
         </md-input-container>
-
-        <md-input-container class="md-block" flex-gt-sm="">
-          <label>貨品數量</label>
-          <input ng-model="good.amount" required>
-        </md-input-container>
-        <md-datepicker ng-model="good.birthday" md-placeholder="產出月份" required></md-datepicker>
       </div>
-
-    <!--   <md-input-container class="md-block">
-        <label>存放位置</label>
-        <input ng-model="good.location" required>
-      </md-input-container> -->
 
       <div layout-gt-xs="row">
        <md-input-container class="md-block" flex-gt-sm="">
           <label>哈希值(自動生成)</label>
-          <input ng-model="good.barcode"
+          <input ng-model="order.barcode"
                  style="color: #F44336;" disabled="">
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
           <label>條形碼(自動生成)</label>
-          <input ng-model="good.barcode"
+          <input ng-model="order.barcode"
                  style="color: #F44336;" disabled="">
         </md-input-container>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/UPC-A-036000291452.png/220px-UPC-A-036000291452.png">
+        <div bar-code code-value="order.barcode" class="no-code-value"></div>
+
       </div>
 
     </form>
   </md-content>
 
+  <!-- <img id="barcode" barcode="{{order.barcode}}"></img> -->
+<!--   <div bar-code code-value="order.barcode"></div>
+ -->
   <md-button  class="md-raised md-primary" 
                   ng-click="printBarcode()"
-                  ng-disabled="(userForm.$invalid) || (!good.barcode)"
+                  ng-disabled="(userForm.$invalid) || (!goods.barcode)"
                   style="margin: 10px 0px 0px 0px;">打印條形碼</md-button>
 
 </div>
@@ -77,5 +77,10 @@
 <style type="text/css" media="screen">
   .inputdemoBasicUsage .md-datepicker-button {
     width: 36px; 
+  }
+  .no-code-value {
+    background-color: white;
+    width: 350px;
+    height: 10px;
   }
 </style>
