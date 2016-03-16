@@ -98,9 +98,21 @@ app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   };
 })
  
-app.service('barcodeService', ['', function(){
-	
-}])
+app.factory('barcodeService', function(){
+	var generate = function(){
+	  function uuid() {
+	    return Math.floor((1 + Math.random()) * 0x10000)
+	      .toString(16)
+	      .substring(1);
+	  }
+	  return uuid() + uuid() + uuid() 
+	}
+
+	return {
+		generate: generate
+	}
+
+})
 
 
 
