@@ -19,6 +19,7 @@
     "angularfire": "~1.1.4",
     "firebase": "~2.4.1",
     "ionicons": "~2.0.1",
-    "jsbarcode": "~2.2.0"
+    "jsbarcode": "~2.2.0",
+    "html2canvas": "~0.4.1"
   }
 }

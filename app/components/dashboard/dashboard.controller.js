@@ -1,6 +1,5 @@
 app.service('toastService', ['$mdToast', function($mdToast){
 	this.showSimpleToast = function(content, delay, position) {
-		console.log("heheheheh")
 		var _position = position || "top right";
 		var _delay = _delay || 3000;
 	  	$mdToast.show(
