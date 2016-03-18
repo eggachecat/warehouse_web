@@ -16,6 +16,7 @@
 
 
   <md-content layout-padding="" 
+              print="toPrint"
               style="border-width: 0px 2px 2px 2px; 
                      border-style: solid;
                      overflow: hidden;
@@ -67,9 +68,10 @@
   <!-- <img id="barcode" barcode="{{order.barcode}}"></img> -->
 <!--   <div bar-code code-value="order.barcode"></div>
  -->
+
   <md-button  class="md-raised md-primary" 
                   ng-click="printBarcode()"
-                  ng-disabled="(userForm.$invalid) || (!goods.barcode)"
+                  ng-disabled="(userForm.$invalid) || (!order.barcode)"
                   style="margin: 10px 0px 0px 0px;">打印條形碼</md-button>
 
 </div>

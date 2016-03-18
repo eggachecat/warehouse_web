@@ -112,7 +112,31 @@ app.factory('barcodeService', function(){
 		generate: generate
 	}
 
-})
+});
+
+app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMedia){
+
+	var preview = function(input){
+
+		$mdDialog.show({
+	      controller: function($scope){
+	      	$scope.input = input;
+	      },
+	      templateUrl: './app/components/print-templates/order.template.html',
+	      // parent: angular.element(document.body),
+	      clickOutsideToClose: true,
+	      fullscreen: true
+	    })
+	    .then(function(answer) {
+	      // $scope.status = 'You said the information was "' + answer + '".';
+	    }, function() {
+	      // $scope.status = 'You cancelled the dialog.';
+	    });
+	}
+	return{
+		preview: preview
+	};
+}])
 
 
 
