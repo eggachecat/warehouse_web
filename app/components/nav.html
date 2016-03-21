@@ -9,15 +9,20 @@
 					style="width: 20%;">
 
 			<md-toolbar style="background-color: #3F51B5;">
-				<img src="https://avatars0.githubusercontent.com/u/139426?v=3&s=400" 
-					 style="margin: auto; height: auto;">
+				<!-- <img src="https://avatars0.githubusercontent.com/u/139426?v=3&s=400" 
+					 style="margin: auto; height: auto;"> -->
 			</md-toolbar>
 
 			<md-content layout-padding >
-				<md-list-item ng-click="navigateTo('main.order')">
+				<md-list-item ng-click="navigateTo('main.add_partno')">
 					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
-					<p>訂單生成</p>
+					<p>料號新增</p>
 				</md-list-item>
+				<md-list-item ng-click="navigateTo('main.manage_partno')">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
+					<p>料號管理</p>
+				</md-list-item>
+
 				<md-list-item ng-click="navigateTo('main.enter')">
 					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
 					<p>產品入庫</p>
@@ -26,6 +31,7 @@
 					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
 					<p>產品出庫</p>
 				</md-list-item>
+				
 				<md-list-item restricted-area access="role-admin" ng-click="navigateTo('main.dashboard')">
 					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
 					<p>帳號管理</p>

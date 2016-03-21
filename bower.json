@@ -20,6 +20,7 @@
     "firebase": "~2.4.1",
     "ionicons": "~2.0.1",
     "jsbarcode": "~2.2.0",
-    "html2canvas": "~0.4.1"
+    "html2canvas": "~0.4.1",
+    "angular-material-data-table": "~0.9.14"
   }
 }

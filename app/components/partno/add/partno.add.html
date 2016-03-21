@@ -8,9 +8,9 @@
     <h2 class="md-toolbar-tools">
       <span>訂單信息</span>
       <span flex></span>
-      <md-button  class="md-raised md-warn" 
-                ng-click="generateBarcode()"
-                ng-disabled="userForm.$invalid">生成條形碼</md-button>
+      <md-button class="md-raised md-warn" 
+                 ng-click="generateBarcode()"
+                 ng-disabled="userForm.$invalid">生成條形碼</md-button>
     </h2>
   </md-toolbar>
 
@@ -72,7 +72,7 @@
   <md-button  class="md-raised md-primary" 
                   ng-click="printBarcode()"
                   ng-disabled="(userForm.$invalid) || (!order.barcode)"
-                  style="margin: 10px 0px 0px 0px;">打印條形碼</md-button>
+                  style="margin: 10px 0px 0px 0px;">新增</md-button>
 
 </div>
 

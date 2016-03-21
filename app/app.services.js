@@ -116,7 +116,7 @@ app.factory('barcodeService', function(){
 
 app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMedia){
 
-	var preview = function(input){
+	var preview = function(input, closeFn){
 
 		$mdDialog.show({
 	      controller: function($scope){
@@ -130,7 +130,7 @@ app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMed
 	    .then(function(answer) {
 	      // $scope.status = 'You said the information was "' + answer + '".';
 	    }, function() {
-	      // $scope.status = 'You cancelled the dialog.';
+	      closeFn();
 	    });
 	}
 	return{
@@ -138,6 +138,24 @@ app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMed
 	};
 }])
 
+app.factory('CommonService', ['$http', function($http){
+	var rootUrl = "http://private-a4897-warehousebackend.apiary-mock.com/url/list";
+	var serverUrl = undefined;
+
+	var getServerUrl = function(){
+		console.log("serverUrl")
+		$http.get(rootUrl).then(function(res){
+			serverUrl = res.data.server;
+			console.log(serverUrl)
+		})
+	}
+	getServerUrl();
+	return {
+		getRequestUrl: function(){
+			return serverUrl;
+		}
+	};
+}])
 
 
 

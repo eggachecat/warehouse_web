@@ -1,6 +1,6 @@
-app.controller('OrderCtrl', ['$scope', 'barcodeService', 'toastService', 'PrintService', 'CanvasService', 
-	function($scope, barcodeService, toastService, PrintService, CanvasService){
-
+app.controller('PartnoAddCtrl', ['$scope', 'barcodeService', 'toastService', 'PartnoService', 
+	function($scope, barcodeService, toastService, PartnoService){
+		// PartnoService.sayHello();
 		$scope.order = {
 			editorId: 007,
 			companyId: 234,
@@ -15,11 +15,10 @@ app.controller('OrderCtrl', ['$scope', 'barcodeService', 'toastService', 'PrintS
 		
 		}
 		$scope.printBarcode = function(){
-			$scope.toPrint = ! $scope.toPrint;
-			//$scope.toPrint = false;
+			$scope.toPrint = true;
 		}
 		
-	}
+	} 
 ]);
 
 app.directive('print', function(PrintService, CanvasService){
@@ -27,11 +26,8 @@ app.directive('print', function(PrintService, CanvasService){
 	return {
 		restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
 		link: function($scope, iElm, iAttrs, controller) {
-			console.log(iAttrs.print )
 			$scope.$watch(iAttrs.print, function(value){
-				CanvasService.getData(iElm).then(function(data){
-					PrintService.preview({dataUrl: data})
-				})
+
 			})
 		}
 	};

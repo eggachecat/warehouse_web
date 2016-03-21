@@ -1,4 +1,4 @@
-var app = angular.module('app', ["firebase", 'ngAnimate', "ui.router", 'ngMaterial', 'ngMessages']);
+var app = angular.module('app', ["firebase", 'ngAnimate', "ui.router", 'ngMaterial', 'ngMessages', 'md.data.table']);
 
 app.constant('AUTH_EVENTS', {
   notAuthenticated: 'auth-not-authenticated'
@@ -20,14 +20,8 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 	      .primaryPalette('yellow')
 	      .backgroundPalette('light-blue')
 	      .dark();
-	  //   $locationProvider.html5Mode({
-			//   enabled: true,
-			//   requireBase: false
-			// })
-
 
 		$urlRouterProvider.otherwise("/login");
-
 		$stateProvider
 	    	.state('login', {
 				url: "/login",
@@ -38,23 +32,28 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 		    	url: "/app",
 		    	abstract: true,
 		    	controller: "NavCtrl",
-		    	templateUrl: "./app/components/main.html",
-		    })
-		    .state('main.enter', {
-				url: "/enterwarehouse",
-				controller: "EnterCtrl",
-				templateUrl: "./app/components/enter/enter.html"
-		    })
-		    .state('main.order', {
-				url: "/order",
-				controller: "OrderCtrl",
-				templateUrl: "./app/components/order/order.html"
-		    })
-		    .state('main.dashboard', {
-				url: "/dash",
-				controller: "DashboardCtrl",
-				templateUrl: "./app/components/dashboard/dashboard.html"
-		    })
+		    	templateUrl: "./app/components/nav.html",
+		    })	.state('main.enter', {
+					url: "/enterwarehouse",
+					controller: "EnterCtrl",
+					templateUrl: "./app/components/enter/enter.html"
+			    })
+			    .state('main.dashboard', {
+					url: "/dash",
+					controller: "DashboardCtrl",
+					templateUrl: "./app/components/dashboard/dashboard.html"
+			    })
+			   .state('main.add_partno', {
+					url: "/partno/add",
+					controller: "PartnoAddCtrl",
+					templateUrl: "./app/components/partno/add/partno.add.html"
+			    })
+			   .state('main.manage_partno', {
+					url: "/partno/manage",
+					controller: "PartnoManageCtrl",
+					templateUrl: "./app/components/partno/manage/partno.manage.html"
+			    });
+		   
 	}
 ])
 app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $state, AuthService){
