@@ -46,7 +46,10 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 			   .state('main.add_partno', {
 					url: "/partno/add",
 					controller: "PartnoAddCtrl",
-					templateUrl: "./app/components/partno/add/partno.add.html"
+					templateUrl: "./app/components/partno/add/partno.add.html",
+					resolve: {
+
+					}
 			    })
 			   .state('main.manage_partno', {
 					url: "/partno/manage",
@@ -57,11 +60,37 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 	}
 ])
 app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $state, AuthService){
-	$scope.navigateTo = function(stateName, obj){
+	$scope.navigation = [{
+		state: "main.add_partno"
+	},{
+		state: "main.manage_partno"
+	},{
+		state: "main.add_partno"
+	},{
+		state: "main.add_partno"
+	},{
+		state: "main.enter"
+	},{
+		state: "main.dashboard"
+	},{
+		state: "main.manage_partno", restricted: true, access: "role-admin" 
+	}];
+	$scope.stateNameTable = {
+		"main.add_partno": "料號新增",
+		"main.manage_partno": "料號管理",
+		"main.enter": "產品入庫",
+		"main.dashboard": "產品出庫",
+		"main.manage_partno": "帳號管理"
+	}
+	$scope.current = $scope.stateNameTable[$state.current.name];
+
+
+	$scope.navigateTo = function(state, obj){
+		$scope.current = $scope.stateNameTable[state];
 		if(obj == null || obj == undefined){
-			$state.go(stateName);
+			$state.go(state);
 		} else {
-			$state.go(stateName, obj);
+			$state.go(state, obj);
 		}
 	}
 
