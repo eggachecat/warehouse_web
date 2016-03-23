@@ -33,7 +33,7 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 			   .state('main.add_partno', {
 					url: "/partno/add",
 					controller: "PartnoAddCtrl",
-					templateUrl: "./app/components/partno/add/partno.add.html",
+					templateUrl: "./app/components/partno/add/add_partno.html",
 					resolve: {
 
 					}
@@ -41,7 +41,7 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 			   .state('main.manage_partno', {
 					url: "/partno/manage",
 					controller: "PartnoManageCtrl",
-					templateUrl: "./app/components/partno/manage/partno.manage.html"
+					templateUrl: "./app/components/partno/manage/manage.partno.html"
 			    });
 		   
 	}
