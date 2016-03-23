@@ -2,7 +2,7 @@
                     style="margin: 40px 350px 10px 350px;">
   <md-icon md-svg-src="./bower_components/ionicons/src/ios-search.svg" class="name"></md-icon>
   <label>搜索關鍵字</label>
-  <input ng-model="data" type="text" md-autofocus> 
+  <input ng-model="data" type="text" autofocus> 
 </md-input-container>
 
 <div class="manage-partno"
@@ -22,16 +22,17 @@
     <table md-table md-row-select ng-model="selected" md-progress="promise">
       <thead md-head md-order="query.order" md-on-reorder="onReorder">
         <tr md-row>
-          <!-- <th md-column md-order-by="nameToLower"><span>Dessert (100g serving)</span></th> -->
-          <th md-column md-numeric md-order-by="editorId">錄入人員代號</th>
-          <th md-column md-numeric>公司料號</th>
-          <th md-column md-numeric>顧客料號</th>
-          <th md-column md-numeric>備註</th>
-          <th md-column md-numeric>條形碼</th>
+          <th md-column md-order-by="editorId"><span>錄入人員</span></th>
+          <th md-column md-order-by="companyId">公司料號</th>
+          <th md-column md-order-by="customerId">顧客料號</th>
+          <th md-column md-order-by="remark">備註</th>
+          <th md-column md-order-by="editorId">條形碼</th>
         </tr>
+      
       </thead>
       <tbody md-body>
-        <tr md-row md-select="dessert" md-select-id="{{dessert.name}}" md-auto-select ng-repeat="dessert in desserts.data">
+        <tr md-row md-select="dessert" md-select-id="{{dessert.name}}" md-auto-select 
+            ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
           <td md-cell>{{dessert.editorId}}</td>
           <td md-cell>{{dessert.companyId}}</td>
           <td md-cell>{{dessert.customerId}}</td>
@@ -42,5 +43,23 @@
     </table>
   </md-table-container>
 
-  <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+  <md-table-pagination  md-limit="query.limit" 
+                        md-page="query.page" 
+                        md-total="{{desserts.count}}" 
+                        md-options="[5,6,7]"
+                        md-page-select>
+  </md-table-pagination>
 </div>
+
+<style type="text/css" media="screen">
+.md-table-search-inbox{
+  margin-bottom: 0px;
+} 
+.md-column {
+  text-align: left !important;
+}
+.md-cell {
+  text-align: left !important;
+}
+
+</style>

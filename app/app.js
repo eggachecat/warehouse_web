@@ -1,18 +1,5 @@
 var app = angular.module('app', ["firebase", 'ngAnimate', "ui.router", 'ngMaterial', 'ngMessages', 'md.data.table']);
 
-app.constant('AUTH_EVENTS', {
-  notAuthenticated: 'auth-not-authenticated'
-})
-app.constant('API_ENDPOINT', {
-  url: 'http://localhost:8080/api'
-});
-
-app.constant('AUTH_ROLES', {
-	admin: 'role-admin',
-	normal: 'role-normal',
-	guest: 'role-guest'
-});
-
 app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$locationProvider', '$httpProvider', 
 	function($stateProvider, $urlRouterProvider, $mdThemingProvider, $locationProvider, $httpProvider) {
 
@@ -60,27 +47,22 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 	}
 ])
 app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $state, AuthService){
-	$scope.navigation = [{
-		state: "main.add_partno"
-	},{
-		state: "main.manage_partno"
-	},{
-		state: "main.add_partno"
-	},{
-		state: "main.add_partno"
-	},{
-		state: "main.enter"
-	},{
-		state: "main.dashboard"
-	},{
-		state: "main.manage_partno", restricted: true, access: "role-admin" 
-	}];
+	$scope.navigation = [
+							{ state: "main.add_partno" },
+							{ state: "main.manage_partno" },
+							{ state: "main.add_partno" },
+							{ state: "main.add_partno" },
+							{ state: "main.enter" },
+							{ state: "main.dashboard" },
+							{ state: "main.manage_partno", restricted: true, access: "role-admin" }
+						];
 	$scope.stateNameTable = {
 		"main.add_partno": "料號新增",
 		"main.manage_partno": "料號管理",
 		"main.enter": "產品入庫",
 		"main.dashboard": "產品出庫",
-		"main.manage_partno": "帳號管理"
+		"main.manage_account": "帳號管理",
+		"main.query_products": "產品查詢"
 	}
 	$scope.current = $scope.stateNameTable[$state.current.name];
 
@@ -116,3 +98,13 @@ app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS, AUTH_ROLES) {
 		// }
 	});
 });
+
+// 帳戶管理
+// 	－建立帳號
+// 	－修改密碼
+// 訂單條碼
+// 	－製作
+// 	－管理
+// 倉庫貨品條碼製作
+// 產品入庫
+// 產品出庫
