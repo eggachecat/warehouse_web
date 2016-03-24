@@ -10,15 +10,22 @@
 
 			<md-toolbar>
 				<div class="md-toolbar-tools">
-					<span>				
-						<md-icon md-svg-icon="./bower_components/ionicons/src/navigate.svg"></md-icon>
-						{{current}}
-					</span>
+					<md-button class="md-icon-button" aria-label="Settings">
+						<md-icon md-svg-icon="./bower_components/ionicons/src/grid.svg"></md-icon>
+					</md-button>
+					<h2>
+						<span>菜單</span>
+					</h2>
 				</div>
 			</md-toolbar>
 
 			<md-content layout-padding >
-				<md-list-item ng-repeat="navi in navigation" ng-click="navigateTo(navi.state)"  restricted="{{navi.restricted}}" access="{{navi.access}}">
+				<md-list-item ng-repeat="navi in navigation" 
+							  ng-click="navigateTo(navi.state)"  
+							  restricted="{{navi.restricted}}" 
+							  access="{{navi.access}}"  
+							  class="md-exclude"
+							  ng-class="{'menu-selected': navi.state == current}">
 					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
 					<p>{{stateNameTable[navi.state]}}</p>
 				</md-list-item>
@@ -38,4 +45,8 @@
 		</md-content>
 	</section>
 </div>
-
+<style type="text/css">
+	.menu-selected button{
+		background-color: rgba(158, 158, 158, 0.2);
+	}
+</style>

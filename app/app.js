@@ -20,7 +20,11 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 		    	abstract: true,
 		    	controller: "NavCtrl",
 		    	templateUrl: "./app/components/navi/navi.html",
-		    })	.state('main.products_enter', {
+		    })	.state('main.products_barcode', {
+					url: "/products/barcode",
+					controller: "ProductsBarcodeCtrl",
+					templateUrl: "./app/components/products/barcode/products_barcode.html"
+			    }).state('main.products_enter', {
 					url: "/products/enter",
 					controller: "ProductsEnterCtrl",
 					templateUrl: "./app/components/products/enter/products_enter.html"
@@ -29,11 +33,6 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 					url: "/products/out",
 					controller: "ProductsOutCtrl",
 					templateUrl: "./app/components/products/out/products_out.html"
-			    })
-			    .state('main.dashboard', {
-					url: "/dash",
-					controller: "DashboardCtrl",
-					templateUrl: "./app/components/dashboard/dashboard.html"
 			    })
 			   .state('main.partno_add', {
 					url: "/partno/add",
@@ -44,6 +43,11 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 					url: "/partno/manage",
 					controller: "PartnoManageCtrl",
 					templateUrl: "./app/components/partno/manage/partno_manage.html"
+			    }) 
+			   .state('main.account', {
+					url: "/account",
+					controller: "AccountCtrl",
+					templateUrl: "./app/components/account/account.html"
 			    });
 		   
 	}

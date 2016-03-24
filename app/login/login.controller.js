@@ -5,7 +5,7 @@ app.controller('LoginCtrl', ['$scope', '$state', 'AuthService',
 			// AuthService.register(user).then(function(msg){
 			// 	 $state.go('main.form');
 			// });
-			$state.go('main.products_enter');
+			$state.go('main.partno_add');
 		}
 	}
 ]);
