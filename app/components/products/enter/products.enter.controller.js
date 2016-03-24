@@ -1,4 +1,4 @@
-app.controller('EnterCtrl', ['$scope', 'toastService',function($scope, toastService){
+app.controller('ProductsEnterCtrl', ['$scope', 'toastService',function($scope, toastService){
 
 	var user = {
 		id: "23333"

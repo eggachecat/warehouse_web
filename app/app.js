@@ -19,23 +19,28 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 		    	url: "/app",
 		    	abstract: true,
 		    	controller: "NavCtrl",
-		    	templateUrl: "./app/components/nav.html",
-		    })	.state('main.enter', {
-					url: "/enterwarehouse",
-					controller: "EnterCtrl",
-					templateUrl: "./app/components/enter/enter.html"
+		    	templateUrl: "./app/components/navi/navi.html",
+		    })	.state('main.products_enter', {
+					url: "/products/enter",
+					controller: "ProductsEnterCtrl",
+					templateUrl: "./app/components/products/enter/products_enter.html"
+			    })
+		    	.state('main.products_out', {
+					url: "/products/out",
+					controller: "ProductsOutCtrl",
+					templateUrl: "./app/components/products/out/products_out.html"
 			    })
 			    .state('main.dashboard', {
 					url: "/dash",
 					controller: "DashboardCtrl",
 					templateUrl: "./app/components/dashboard/dashboard.html"
 			    })
-			   .state('main.add_partno', {
+			   .state('main.partno_add', {
 					url: "/partno/add",
 					controller: "PartnoAddCtrl",
 					templateUrl: "./app/components/partno/add/partno_add.html"
 			    })
-			   .state('main.manage_partno', {
+			   .state('main.partno_manage', {
 					url: "/partno/manage",
 					controller: "PartnoManageCtrl",
 					templateUrl: "./app/components/partno/manage/partno_manage.html"
@@ -43,42 +48,6 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 		   
 	}
 ])
-app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $state, AuthService){
-	$scope.navigation = [
-							{ state: "main.add_partno" },
-							{ state: "main.manage_partno" },
-							{ state: "main.add_partno" },
-							{ state: "main.add_partno" },
-							{ state: "main.enter" },
-							{ state: "main.dashboard" },
-							{ state: "main.manage_partno", restricted: true, access: "role-admin" }
-						];
-	$scope.stateNameTable = {
-		"main.add_partno": "料號新增",
-		"main.manage_partno": "料號管理",
-		"main.enter": "產品入庫",
-		"main.dashboard": "產品出庫",
-		"main.manage_account": "帳號管理",
-		"main.query_products": "產品查詢"
-	}
-	$scope.current = $scope.stateNameTable[$state.current.name];
-
-
-	$scope.navigateTo = function(state, obj){
-		$scope.current = $scope.stateNameTable[state];
-		if(obj == null || obj == undefined){
-			$state.go(state);
-		} else {
-			$state.go(state, obj);
-		}
-	}
-
-	$scope.logout = function(){
-		AuthService.logout();
-		$state.go("login");
-	}
-}])
-
 
 app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS, AUTH_ROLES) {
 	$rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {

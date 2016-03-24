@@ -1,0 +1,41 @@
+<div layout="column" ng-cloak 
+	 style="height:100%;">
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left"
+					md-component-id="left"
+					md-is-locked-open="true"
+					md-disable-backdrop
+					md-whiteframe="4"
+					style="width: 16%;">
+
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<span>				
+						<md-icon md-svg-icon="./bower_components/ionicons/src/navigate.svg"></md-icon>
+						{{current}}
+					</span>
+				</div>
+			</md-toolbar>
+
+			<md-content layout-padding >
+				<md-list-item ng-repeat="navi in navigation" ng-click="navigateTo(navi.state)"  restricted="{{navi.restricted}}" access="{{navi.access}}">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/navicon-round.svg"></md-icon>
+					<p>{{stateNameTable[navi.state]}}</p>
+				</md-list-item>
+				<md-list-item ng-click="logout()">
+					<md-icon md-svg-icon="./bower_components/ionicons/src/log-out.svg"></md-icon>
+					<p>退出</p>
+				</md-list-item>
+			</md-content>
+
+		</md-sidenav>
+
+		<md-content flex class="background">
+				<md-content class="background">
+					<ui-view class="background anim-in-out anim-fade" data-anim-speed="1000"></ui-view>
+				</md-content>
+			</div>
+		</md-content>
+	</section>
+</div>
+
