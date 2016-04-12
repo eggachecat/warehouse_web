@@ -114,6 +114,20 @@ app.factory('barcodeService', function(){
 
 });
 
+app.service('CanvasService', ['$q', function($q){
+	this.getData = function(element) {
+		var data = $q.defer();
+		html2canvas(element, {
+			onrendered: function(canvas) {
+    			data.resolve(canvas.toDataURL());
+	    	}
+		});
+		return data.promise
+	}
+}])
+
+
+
 app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMedia){
 
 	var preview = function(input, closeFn){
@@ -121,17 +135,17 @@ app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMed
 		$mdDialog.show({
 	      controller: function($scope){
 	      	$scope.input = input;
+	      	$scope.download = function(download) {
+			    $mdDialog.hide(download);
+			 };
 	      },
-	      templateUrl: './app/components/print-templates/order.template.html',
-	      // parent: angular.element(document.body),
+	      templateUrl: './app/components/dialogs/print-template.html',
 	      clickOutsideToClose: true,
 	      fullscreen: true
 	    })
-	    .then(function(answer) {
-	      // $scope.status = 'You said the information was "' + answer + '".';
-	    }, function() {
-	      closeFn();
-	    });
+	    .then(function(download) {
+	    	console.log(download);
+	    }, function() {});
 	}
 	return{
 		preview: preview

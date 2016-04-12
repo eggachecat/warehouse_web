@@ -32,20 +32,9 @@ app.directive('restricted', ['AuthService', function(AuthService){
 }]);
 
 app.directive('barCode', function(){
-    // Runs during compile
+
     return {
-        // name: '',
-        // priority: 1,
-        // terminal: true,
-        // scope: true, // {} = isolate, true = child, false/undefined = no change
-        // controller: function($scope, $element, $attrs, $transclude) {},
-        // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-        restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
         template: '<img id="barcode" style="float:right;"></img>',
-        // templateUrl: '',
-        // replace: true,
-        // transclude: true,
-        // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
         link: function($scope, iElm, iAttrs, controller) {
             console.log(iAttrs["codeValue"]);
 
@@ -60,6 +49,20 @@ app.directive('barCode', function(){
                 });
                 
             })   
+        }
+    };
+});
+app.directive('print', function(PrintService, CanvasService){
+    // Runs during compile
+    return {
+        restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+        link: function($scope, iElm, iAttrs, controller) {
+            $scope.printPreview = function(){
+                console.log("print")
+                CanvasService.getData(iElm).then(function(data){
+                    PrintService.preview({dataUrl: data})
+                })
+            }
         }
     };
 });

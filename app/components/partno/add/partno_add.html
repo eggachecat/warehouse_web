@@ -16,12 +16,11 @@
 
 
   <md-content layout-padding="" 
-              print="toPrint"
               style="border-width: 0px 2px 2px 2px; 
                      border-style: solid;
                      overflow: hidden;
                      border-color: #3F51B5;">
-    <form name="userForm">
+    <form name="userForm" print>
       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>編輯人員代號</label>
@@ -70,7 +69,7 @@
  -->
 
   <md-button  class="md-raised md-primary" 
-                  ng-click="printBarcode()"
+                  ng-click="printPreview()"
                   ng-disabled="(userForm.$invalid) || (!order.barcode)"
                   style="margin: 10px 0px 0px 0px;">新增</md-button>
 
