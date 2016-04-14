@@ -1,13 +1,8 @@
 app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
 	var LOCAL_TOKEN_KEY = 'warehouseManageKey';
 	var isAuthenticated = false;
-	var userRole = AUTH_ROLES.guest;
-	//var authToken = "undefined";
-	var DEBUG = true;
-	if(DEBUG == true){
-		var authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsInJvbGUiOiJyb2xlLWFkbWluIn0.p5tlB2mwwJcxqHjp1uyKcJxrXEAKcK6fpzrdykBwZfA";
- 		storeUserCredentials(authToken)
- 	}
+	var userRole = AUTH_ROLES["privilege-1"];// Guest
+	var authToken = "undefined";
 
 	function decodeData(token) {
 	  var tokenData = token.split('.')[1];
@@ -15,16 +10,23 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
 	  return JSON.parse(window.atob(tokenData));	
 	}
 
+	function getPrivilege(tokenObj){
+		return "privilege" + tokenObj["privilege"]
+	}
+
 	function useCredentials(token) {
 		isAuthenticated = true;
 		authToken = token;
-		userRole = decodeData(token)["role"];
+		tokenObj = decodeData(token)
+		// Get Role
+		userRole = AUTH_ROLES[getPrivilege(tokenObj)];
 		// Set the token as header for your requests!
 		$http.defaults.headers.common.Authorization = authToken;
 	}
  
  	function loadUserCredentials() {
 		var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
+		console.log(token)
 		if (token) {
 			useCredentials(token);
 		}
@@ -45,8 +47,8 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
  
 	var register = function(user) {
 		return $q(function(resolve, reject) {
-			$http.post(API_ENDPOINT.url + '/signup', user).then(function(result) {
-				if (result.data.success) {
+			$http.post(API_ENDPOINT.url + 'user/signup', user).then(function(result) {
+				if (result.data.valid) {
 					resolve(result.data.msg);
 				} else {
 					reject(result.data.msg);
@@ -57,8 +59,11 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
  
 	var login = function(user) {
 		return $q(function(resolve, reject) {
-			$http.post(API_ENDPOINT.url + '/authenticate', user).then(function(result) {
-				if (result.data.success) {
+		
+			$http.post(API_ENDPOINT.url + '/user/login', user).then(function(result) {
+				console.log(result)
+				if (result.data.valid) {
+					console.log(result.data.token)
 					storeUserCredentials(result.data.token);
 					resolve(result.data.msg);
 				} else {
@@ -154,7 +159,7 @@ app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMed
 
 app.factory('CommonService', ['$http', function($http){
 	var rootUrl = "http://private-a4897-warehousebackend.apiary-mock.com/url/list";
-	var serverUrl = undefined;
+	var serverUrl = "140.138.17.10:5000";
 
 	var getServerUrl = function(){
 		console.log("serverUrl")
@@ -163,7 +168,7 @@ app.factory('CommonService', ['$http', function($http){
 			console.log(serverUrl)
 		})
 	}
-	getServerUrl();
+	//getServerUrl();
 	return {
 		getRequestUrl: function(){
 			return serverUrl;
@@ -183,14 +188,3 @@ app.service('toastService', ['$mdToast', function($mdToast){
 	  	);
 	};
 }])
-
-
-
-
-
-
-
-
-
-
-

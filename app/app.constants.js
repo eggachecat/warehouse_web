@@ -2,12 +2,12 @@ app.constant('AUTH_EVENTS', {
   notAuthenticated: 'auth-not-authenticated'
 })
 app.constant('API_ENDPOINT', {
-  url: 'http://localhost:8080/api'
+  url: 'http://140.138.17.10:5000'
 });
 app.constant('AUTH_ROLES', {
-	admin: 'role-admin',
-	normal: 'role-normal',
-	guest: 'role-guest'
+	"privilege-3" : 'role-admin',
+	"privilege-2" : 'role-normal',
+	"privilege-1" : 'role-guest'
 });
 
 

@@ -1,6 +1,6 @@
 var app = angular.module('app', ["firebase", 'ngAnimate', "ui.router", 'ngMaterial', 'ngMessages', 'md.data.table']);
 
-app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$locationProvider', '$httpProvider', 
+app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$locationProvider', '$httpProvider',
 	function($stateProvider, $urlRouterProvider, $mdThemingProvider, $locationProvider, $httpProvider) {
 
 		$mdThemingProvider.theme('docs-dark', 'default')
@@ -49,7 +49,6 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 					controller: "AccountCtrl",
 					templateUrl: "./app/components/account/account.html"
 			    });
-		   
 	}
 ])
 
@@ -68,13 +67,3 @@ app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS, AUTH_ROLES) {
 		// }
 	});
 });
-
-// 帳戶管理
-// 	－建立帳號
-// 	－修改密碼
-// 訂單條碼
-// 	－製作
-// 	－管理
-// 倉庫貨品條碼製作
-// 產品入庫
-// 產品出庫

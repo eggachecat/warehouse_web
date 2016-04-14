@@ -7,7 +7,6 @@ app.controller('PartnoAddCtrl', ['$scope', 'barcodeService', 'toastService', 'Pa
 			customerId: 123,
 			remark:"hehe",
 		}
-		$scope.toPrint = false;
 
 		$scope.generateBarcode = function(){
 			$scope.order.barcode = barcodeService.generate();
