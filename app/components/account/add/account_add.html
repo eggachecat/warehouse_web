@@ -1,0 +1,61 @@
+<div ng-cloak="" 
+     layout="column" class="md-inline-form inputdemoBasicUsage" 
+     style="width: 864px; 
+            margin: auto;
+            padding-top: 60px;">
+
+  <md-toolbar class="light-blue">
+    <h2 class="md-toolbar-tools">
+      <span>新增帳戶</span>
+      <span flex></span>
+    </h2>
+  </md-toolbar>
+
+
+  <md-content layout-padding="" 
+              style="border-width: 0px 2px 2px 2px; 
+                     border-style: solid;
+                     overflow: hidden;
+                     border-color: #3F51B5;">
+    <form name="userForm" print>
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>用戶名</label>
+          <input ng-model="order.editorId">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>電子信箱</label>
+          <input ng-model="order.companyId">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>密碼</label>
+          <input ng-model="order.customerId">
+        </md-input-container>
+      </div>
+
+    </form>
+  </md-content>
+
+  <!-- <img id="barcode" barcode="{{order.barcode}}"></img> -->
+<!--   <div bar-code code-value="order.barcode"></div>
+ -->
+
+  <md-button  class="md-raised md-primary" 
+                  ng-click="printPreview()"
+                  ng-disabled="(userForm.$invalid) || (!order.barcode)"
+                  style="margin: 10px 0px 0px 0px;">新增</md-button>
+
+</div>
+
+<style type="text/css" media="screen">
+  .inputdemoBasicUsage .md-datepicker-button {
+    width: 36px; 
+  }
+  .no-code-value {
+    background-color: white;
+    width: 350px;
+    height: 10px;
+  }
+</style>

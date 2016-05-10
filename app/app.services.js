@@ -1,7 +1,7 @@
 app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
-	var LOCAL_TOKEN_KEY = 'warehouseManageKey';
+	var LOCAL_TOKEN_KEY = 'warehouse:auth-token-key';
 	var isAuthenticated = false;
-	var userRole = AUTH_ROLES["privilege-1"];// Guest
+	var userRole = AUTH_ROLES["privilege-3"];// Guest
 	var authToken = "undefined";
 
 	function decodeData(token) {
@@ -11,17 +11,19 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
 	}
 
 	function getPrivilege(tokenObj){
-		return "privilege" + tokenObj["privilege"]
+		return "privilege-" + tokenObj["privilage"]
 	}
 
 	function useCredentials(token) {
 		isAuthenticated = true;
 		authToken = token;
 		tokenObj = decodeData(token)
+
 		// Get Role
 		userRole = AUTH_ROLES[getPrivilege(tokenObj)];
+		console.log(tokenObj, userRole)
 		// Set the token as header for your requests!
-		$http.defaults.headers.common.Authorization = authToken;
+		$http.defaults.headers.common.token = authToken;
 	}
  
  	function loadUserCredentials() {
@@ -41,13 +43,13 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
 		authToken = undefined;
 		isAuthenticated = false;
 		userRole = AUTH_ROLES.guest;
-		$http.defaults.headers.common.Authorization = undefined;
+		$http.defaults.headers.common.token = undefined;
 		window.localStorage.removeItem(LOCAL_TOKEN_KEY);
 	}
  
 	var register = function(user) {
 		return $q(function(resolve, reject) {
-			$http.post(API_ENDPOINT.url + 'user/signup', user).then(function(result) {
+			$http.post(API_ENDPOINT.url + '／user/signup', user).then(function(result) {
 				if (result.data.valid) {
 					resolve(result.data.msg);
 				} else {
@@ -175,7 +177,24 @@ app.factory('CommonService', ['$http', function($http){
 		}
 	};
 }])
+app.factory('DataService', ['API_ENDPOINT', '$q', '$http', function(API_ENDPOINT, $q, $http){
+	var userListUrl = API_ENDPOINT.url + "/user/list";
 
+	function getData(url){
+		console.log(url);
+		var deferData = $q.defer();
+		$http.get(url).then(function(result) {
+			deferData.resolve(result.data);
+		}, function(err){
+			deferData.reject(result.data);
+		});
+
+		return deferData.promise
+	}
+	return{
+		getUserList: function(){ return getData(userListUrl) }
+	};
+}])
 app.service('toastService', ['$mdToast', function($mdToast){
 	this.showSimpleToast = function(content, delay, position) {
 		var _position = position || "top right";

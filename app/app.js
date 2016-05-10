@@ -1,4 +1,4 @@
-var app = angular.module('app', ["firebase", 'ngAnimate', "ui.router", 'ngMaterial', 'ngMessages', 'md.data.table']);
+var app = angular.module('app', ['ngAnimate', "ui.router", 'ngMaterial', 'ngMessages', 'md.data.table']);
 
 app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$locationProvider', '$httpProvider',
 	function($stateProvider, $urlRouterProvider, $mdThemingProvider, $locationProvider, $httpProvider) {
@@ -44,26 +44,32 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 					controller: "PartnoManageCtrl",
 					templateUrl: "./app/components/partno/manage/partno_manage.html"
 			    }) 
-			   .state('main.account', {
-					url: "/account",
-					controller: "AccountCtrl",
-					templateUrl: "./app/components/account/account.html"
+			    .state('main.account_add', {
+					url: "/account/add",
+					controller: "AccountAddCtrl",
+					templateUrl: "./app/components/account/add/account_add.html"
+			    })
+			    .state('main.account_manage', {
+					url: "/account/manage",
+					controller: "AccountManageCtrl",
+					templateUrl: "./app/components/account/manage/account_manage.html"
 			    });
+
 	}
 ])
 
 app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS, AUTH_ROLES) {
 	$rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
-		// if (!AuthService.isAuthenticated()) {
-		// 	console.log(next.name);
-		// 	if (next.name !== 'login' && next.name !== 'register') {
-		// 		event.preventDefault();
-		// 		$state.go('login');
-		// 	}
-		// }
-		// if(AuthService.authoRole !== AUTH_ROLES.admin){
-		// 		event.preventDefault();
-		// 		$state.go('login');
-		// }
+		if (!AuthService.isAuthenticated()) {
+			console.log(next.name);
+			if (next.name !== 'login' && next.name !== 'register') {
+				event.preventDefault();
+				$state.go('login');
+			}
+		}
+		if(AuthService.authoRole !== AUTH_ROLES.admin){
+				event.preventDefault();
+				$state.go('login');
+		}
 	});
 });

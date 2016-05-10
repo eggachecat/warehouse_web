@@ -5,7 +5,8 @@ app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $
 							{ state: "main.products_barcode" },
 							{ state: "main.products_enter" },
 							{ state: "main.products_out" },
-							{ state: "main.account", restricted: true, access: "role-admin" }
+							{ state: "main.account_add", restricted: true, access: "role-admin" },
+							{ state: "main.account_manage", restricted: true, access: "role-admin" }
 
 						];
 	$scope.stateNameTable = {
@@ -15,7 +16,8 @@ app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $
 		"main.products_out": "產品出庫",
 		"main.products_barcode": "產品條碼",
 		"main.query_products": "產品查詢",
-		"main.account": "帳戶管理"
+		"main.account_add": "帳戶新增",
+		"main.account_manage": "帳戶管理"
 	}
 	$scope.current = $state.current.name;
 

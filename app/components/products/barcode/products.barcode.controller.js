@@ -9,7 +9,6 @@ app.controller('ProductsBarcodeCtrl', ['$scope', 'barcodeService', 'toastService
 			perid: 0607,
 			location: "4A"
 	}
-	$scope.toPrint = false;
 
 	$scope.generateBarcode = function(){
 		$scope.products.barcode = barcodeService.generate();
