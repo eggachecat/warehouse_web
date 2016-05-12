@@ -7,6 +7,8 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 	      .primaryPalette('yellow')
 	      .backgroundPalette('light-blue')
 	      .dark();
+	    $mdThemingProvider.theme("success-toast")
+	    $mdThemingProvider.theme("error-toast")
 
 		$urlRouterProvider.otherwise("/login");
 		$stateProvider
@@ -66,10 +68,6 @@ app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS, AUTH_ROLES) {
 				event.preventDefault();
 				$state.go('login');
 			}
-		}
-		if(AuthService.authoRole !== AUTH_ROLES.admin){
-				event.preventDefault();
-				$state.go('login');
 		}
 	});
 });

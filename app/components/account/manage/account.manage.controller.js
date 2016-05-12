@@ -1,5 +1,5 @@
-app.controller('AccountManageCtrl', ['$scope', 'AuthService', 'DataService', function($scope, AuthService, DataService){
-
+app.controller('AccountManageCtrl', function($scope, AuthService, DataService, AccountService){
+	$scope.privilegeMap = AccountService.privilegeMap;
 	// var data = DataService.getUserList();
 	$scope.selected = [];
 	DataService.getUserList().then(function(data){
@@ -13,4 +13,4 @@ app.controller('AccountManageCtrl', ['$scope', 'AuthService', 'DataService', fun
 			console.log(error)
 		});
 	}
-}])
+})

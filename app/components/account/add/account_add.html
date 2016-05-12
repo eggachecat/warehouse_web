@@ -1,6 +1,6 @@
 <div ng-cloak="" 
      layout="column" class="md-inline-form inputdemoBasicUsage" 
-     style="width: 864px; 
+     style="width: 40%; 
             margin: auto;
             padding-top: 60px;">
 
@@ -8,6 +8,7 @@
     <h2 class="md-toolbar-tools">
       <span>新增帳戶</span>
       <span flex></span>
+       <md-button class="md-raised md-warn" ng-click="user={};rpassword=''">清空資料</md-button>
     </h2>
   </md-toolbar>
 
@@ -17,34 +18,55 @@
                      border-style: solid;
                      overflow: hidden;
                      border-color: #3F51B5;">
-    <form name="userForm" print>
+    <form name="userForm">
       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>用戶名</label>
-          <input ng-model="order.editorId">
+          <input ng-model="user.username" ng-required="true">
         </md-input-container>
-
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>電子信箱</label>
-          <input ng-model="order.companyId">
-        </md-input-container>
-
-        <md-input-container class="md-block" flex-gt-sm="">
-          <label>密碼</label>
-          <input ng-model="order.customerId">
+          <label>暱稱</label>
+          <input ng-model="user.name" ng-required="true">
         </md-input-container>
       </div>
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>電子信箱</label>
+          <input ng-model="user.email"  ng-required="true">
+        </md-input-container>
+        <md-input-container>
+          <label>權限</label>
+          <md-select ng-model="user.privilage" ng-required="true">
+            <md-option ng-repeat="(privilege,name) in privilegeMap" value="{{privilege}}">
+              {{name}}
+            </md-option>
+          </md-select>
+      </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>密碼</label>
+          <input ng-model="user.password" type="password" ng-required="true">
+        </md-input-container>
+         <md-input-container class="md-block" flex-gt-sm="">
+          <label>密碼確認</label>
+          <input ng-model="rpassword" type="password" ng-required="true">
+        </md-input-container>
+      </div>
+      <div layout-gt-xs="row">
+         <span class="err" 
+         ng-show="psdLegel(user.password) && psdLegel(rpassword) && user.password !== rpassword">密碼不一致</span>
+      </div>
+    
 
     </form>
   </md-content>
 
-  <!-- <img id="barcode" barcode="{{order.barcode}}"></img> -->
-<!--   <div bar-code code-value="order.barcode"></div>
- -->
-
   <md-button  class="md-raised md-primary" 
-                  ng-click="printPreview()"
-                  ng-disabled="(userForm.$invalid) || (!order.barcode)"
+                  ng-disabled="userForm.$invalid"
+                  ng-click="signIn(user);"
                   style="margin: 10px 0px 0px 0px;">新增</md-button>
 
 </div>
@@ -57,5 +79,8 @@
     background-color: white;
     width: 350px;
     height: 10px;
+  }
+  .err {
+    color:red;
   }
 </style>

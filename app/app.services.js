@@ -1,4 +1,4 @@
-app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
+app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state) {
 	var LOCAL_TOKEN_KEY = 'warehouse:auth-token-key';
 	var isAuthenticated = false;
 	var userRole = AUTH_ROLES["privilege-3"];// Guest
@@ -24,6 +24,8 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
 		console.log(tokenObj, userRole)
 		// Set the token as header for your requests!
 		$http.defaults.headers.common.token = authToken;
+		console.log("ohlala")
+		$state.go("main.products_barcode")
 	}
  
  	function loadUserCredentials() {
@@ -49,12 +51,15 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES) {
  
 	var register = function(user) {
 		return $q(function(resolve, reject) {
-			$http.post(API_ENDPOINT.url + '／user/signup', user).then(function(result) {
+			$http.post(API_ENDPOINT.url + '/user/add', user).then(function(result, status) {
+				console.log(result, status)
 				if (result.data.valid) {
 					resolve(result.data.msg);
 				} else {
 					reject(result.data.msg);
 				}
+			}, function(err){
+				console.log(err)
 			});
 		});
 	};
@@ -196,14 +201,23 @@ app.factory('DataService', ['API_ENDPOINT', '$q', '$http', function(API_ENDPOINT
 	};
 }])
 app.service('toastService', ['$mdToast', function($mdToast){
-	this.showSimpleToast = function(content, delay, position) {
+	this.showSimpleToast = function(content, type, delay, position) {
+		var typeThemeMap = {
+			"error": "error-toast",
+			"success": "success-toast"
+		}
+
 		var _position = position || "top right";
-		var _delay = _delay || 3000;
+		var _delay = _delay || 5000;
+		var _type = type || "general";
+		var _theme = typeThemeMap[_type]
+		console.log(_theme)
 	  	$mdToast.show(
 		  	$mdToast.simple()
 		  	.textContent(content)
 		  	.position(_position)
 	    	.hideDelay(_delay)
+	    	.theme(_theme)
 	  	);
 	};
 }])

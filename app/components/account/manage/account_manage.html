@@ -12,6 +12,10 @@
 	<md-toolbar class="light-blue md-table-toolbar">
 		<div class="md-toolbar-tools">
 			<span>帳號管理</span>
+			<span flex></span>
+       		<md-button class="md-raised md-accent" ng-disabled="false">
+       			保存
+       		</md-button>	
 		</div>
 	</md-toolbar>
   <!-- exact table from live demo -->
@@ -24,29 +28,46 @@
 				<th md-column md-order-by="email">郵箱</th>
 				<th md-column md-order-by="privilage">權限等級</th>
 				<th md-column md-order-by="lastlogin">上次登入</th>
-				<th md-column>活躍狀態</th>
+				<th md-column>修改信息</th>
 			</tr>
 			</thead>
 		<tbody md-body>
 			<tr md-row md-select="user" md-select-id="{{user.name}}" md-auto-select 
-			ng-repeat="user in userList | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-				<td md-cell>
+			ng-repeat="user in userList | 
+					   filter: filter.search | 
+					   orderBy: query.order | 
+					   limitTo: query.limit : (query.page -1) * query.limit" 
+			ng-init="editable=false">
+				<td md-cell class="username">
 					{{user.username}}
 				</td>
-				<td md-cell>
-					{{user.name}}
+				<td md-cell class="name">
+					<md-input-container class="md-block" flex-gt-xs>
+						<label>name</label>
+						<input ng-model="user.name" ng-disabled="!editable" >
+					</md-input-container>
 				</td>
-				<td md-cell>
-					{{user.email}}
+				<td md-cell class="email">
+					<md-input-container class="md-block" flex-gt-xs>
+						<label>email</label>
+						<input ng-model="user.email" ng-disabled="!editable">
+					</md-input-container>
 				</td>
-				<td md-cell>
-					{{user.privilage}}
+				<td md-cell class="role">
+					<md-input-container class="md-block" flex-gt-xs>
+						<label>role</label>
+						<md-select ng-model="user.privilage" ng-disabled="!editable">
+							<md-option ng-repeat="(privilege,name) in privilegeMap" value="{{privilege}}">
+							{{name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
 				</td>
-				<td md-cell>
+				<td md-cell class="lastlogin">
 					{{user.lastlogin}}
 				</td>
-				<td md-cell>
-					<md-switch ng-model="data.cb1" aria-label="Switch 1"></md-switch>
+				<td md-cell class="lock">
+					<md-switch ng-model="editable" aria-label="Edit Lock"></md-switch>
 				</td>
 			</tr>
 		</tbody>
@@ -71,5 +92,35 @@
 .md-cell {
   text-align: left !important;
 }
-
+.account .md-errors-spacer{
+	display:none !important;
+}
+td.username{
+	width: 10%;
+}
+td.name{
+	width: 10%;
+}
+td.email{
+	width: 20%;
+}
+td.role{
+	width: 5%;
+}
+td.lastlogin{
+	width: 15%;
+}
+td.lock{
+	width: 5%;
+}
+th[md-column]{
+	text-align:center !important;
+}
+tbody input, md-select-value{
+	text-align:center;
+	color:black !important;
+}
+md-input-container label {
+	display: none;
+}
 </style>
