@@ -2,7 +2,7 @@
                     style="margin: 40px 350px 10px 350px;">
   <md-icon md-svg-src="./bower_components/ionicons/src/ios-search.svg" class="name"></md-icon>
   <label>搜索關鍵字</label>
-  <input ng-model="data" type="text" autofocus> 
+  <input ng-model="filter.search" type="text" autofocus> 
 </md-input-container>
 
 <div class="account"
@@ -13,7 +13,7 @@
 		<div class="md-toolbar-tools">
 			<span>帳號管理</span>
 			<span flex></span>
-       		<md-button class="md-raised md-accent" ng-disabled="false">
+       		<md-button class="md-raised md-accent" ng-disabled="dirtyRow == undefined" ng-click="save(dirtyRow);dirtyRow=undefined;">
        			保存
        		</md-button>	
 		</div>
@@ -26,7 +26,7 @@
 				<th md-column md-order-by="username"><span>帳戶名</span></th>
 				<th md-column md-order-by="name">暱稱</th>
 				<th md-column md-order-by="email">郵箱</th>
-				<th md-column md-order-by="privilage">權限等級</th>
+				<th md-column md-order-by="privilege">權限等級</th>
 				<th md-column md-order-by="lastlogin">上次登入</th>
 				<th md-column>修改信息</th>
 			</tr>
@@ -39,7 +39,7 @@
 					   limitTo: query.limit : (query.page -1) * query.limit" 
 			ng-init="editable=false">
 				<td md-cell class="username">
-					{{user.username}}
+					<div>{{user.username}}</div>
 				</td>
 				<td md-cell class="name">
 					<md-input-container class="md-block" flex-gt-xs>
@@ -56,7 +56,7 @@
 				<td md-cell class="role">
 					<md-input-container class="md-block" flex-gt-xs>
 						<label>role</label>
-						<md-select ng-model="user.privilage" ng-disabled="!editable">
+						<md-select ng-model="user.privilege" ng-disabled="!editable">
 							<md-option ng-repeat="(privilege,name) in privilegeMap" value="{{privilege}}">
 							{{name}}
 							</md-option>
@@ -67,7 +67,10 @@
 					{{user.lastlogin}}
 				</td>
 				<td md-cell class="lock">
-					<md-switch ng-model="editable" aria-label="Edit Lock"></md-switch>
+					<!-- <button  ng-click="echo()">echo</button> -->
+					<div class="button" ng-click="edit(user)">
+						<md-switch  ng-model="editable" aria-label="Edit Lock" ></md-switch>
+					</div>
 				</td>
 			</tr>
 		</tbody>
@@ -86,23 +89,18 @@
 .md-table-search-inbox{
   margin-bottom: 0px;
 } 
-.md-column {
-  text-align: left !important;
-}
-.md-cell {
-  text-align: left !important;
-}
 .account .md-errors-spacer{
 	display:none !important;
 }
 td.username{
 	width: 10%;
+	/* text-align: center !important; */
 }
 td.name{
-	width: 10%;
+	width: 8%;
 }
 td.email{
-	width: 20%;
+	width: 15%;
 }
 td.role{
 	width: 5%;
@@ -113,11 +111,7 @@ td.lastlogin{
 td.lock{
 	width: 5%;
 }
-th[md-column]{
-	text-align:center !important;
-}
 tbody input, md-select-value{
-	text-align:center;
 	color:black !important;
 }
 md-input-container label {

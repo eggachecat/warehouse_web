@@ -11,7 +11,7 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state)
 	}
 
 	function getPrivilege(tokenObj){
-		return "privilege-" + tokenObj["privilage"]
+		return "privilege-" + tokenObj["privilege"]
 	}
 
 	function useCredentials(token) {
@@ -21,11 +21,9 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state)
 
 		// Get Role
 		userRole = AUTH_ROLES[getPrivilege(tokenObj)];
-		console.log(tokenObj, userRole)
+	
 		// Set the token as header for your requests!
 		$http.defaults.headers.common.token = authToken;
-		console.log("ohlala")
-		$state.go("main.products_barcode")
 	}
  
  	function loadUserCredentials() {
@@ -50,9 +48,10 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state)
 	}
  
 	var register = function(user) {
+		console.log(user)
 		return $q(function(resolve, reject) {
-			$http.post(API_ENDPOINT.url + '/user/add', user).then(function(result, status) {
-				console.log(result, status)
+			$http.post(API_ENDPOINT.url + '/user/add', user).then(function(result) {
+				console.log(result)
 				if (result.data.valid) {
 					resolve(result.data.msg);
 				} else {
@@ -183,21 +182,33 @@ app.factory('CommonService', ['$http', function($http){
 	};
 }])
 app.factory('DataService', ['API_ENDPOINT', '$q', '$http', function(API_ENDPOINT, $q, $http){
-	var userListUrl = API_ENDPOINT.url + "/user/list";
-
-	function getData(url){
-		console.log(url);
-		var deferData = $q.defer();
-		$http.get(url).then(function(result) {
-			deferData.resolve(result.data);
-		}, function(err){
-			deferData.reject(result.data);
-		});
-
-		return deferData.promise
+	
+	function requestServer(httpObj){	
+		var deferred = $q.defer();
+		httpObj.then(function(result){
+			console.log(result)
+			if(result.data.valid){
+				deferred.resolve(result.data);
+			}else{
+				deferred.reject(result.data.msg);
+			}
+		})
+		return deferred.promise
 	}
+
+	function get(dstUrl){
+		dstUrl =  API_ENDPOINT.url + dstUrl
+		return requestServer($http.get(dstUrl))
+	}
+	function post(dstUrl, data){
+		console.log(data)
+		dstUrl =  API_ENDPOINT.url + dstUrl
+		return requestServer($http.post(dstUrl, data))
+	}
+
 	return{
-		getUserList: function(){ return getData(userListUrl) }
+		get: get,
+		post: post
 	};
 }])
 app.service('toastService', ['$mdToast', function($mdToast){

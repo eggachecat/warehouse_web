@@ -7,6 +7,9 @@ app.controller('LoginCtrl', ['$scope', 'barcodeService', 'toastService', 'Partno
 			customerId: 123,
 			remark:"hehe",
 		}
+		$state.go("main.products_barcode"); 
+			// if not authed should be prevented
+		$scope.dirtyRow = undefined;
 
 		$scope.generateBarcode = function(){
 			$scope.order.barcode = barcodeService.generate();
@@ -22,6 +25,9 @@ app.controller('LoginCtrl', ['$scope', 'barcodeService', 'toastService', 'Partno
 			});
 		}
 
+		$scope.echo = function(){
+			console.log("ohla")
+		}
 	} 
 ]);
 
