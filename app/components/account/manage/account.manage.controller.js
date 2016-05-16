@@ -1,32 +1,59 @@
-app.controller('AccountManageCtrl', function($scope, AuthService, AccountService, toastService){
+app.controller('AccountManageCtrl', function($scope, AuthService, AccountService, toastService, $mdDialog){
 	$scope.privilegeMap = AccountService.privilegeMap;
-	// var data = DataService.getUserList();
-	$scope.selected = [];
+	
+	
 
-	$scope.dirtyRow = undefined;
-	AccountService.read().then(function(data){
-		$scope.userList = data.list;
-	})
- 
-	$scope.onSubmit = function(user){
-		AuthService.register(user).then(function(data){
-			console.log(data)
-		}, function(error){
-			console.log(error)
-		});
+	function getData(){
+		AccountService.read().then(function(data){
+			$scope.userList = data.list;
+		})
 	}
+	getData();
 
+	$scope.refresh = function(){ getData() }
 
-	$scope.edit = function(data){
-		$scope.dirtyRow = data;	
-	}
-
-	$scope.save = function(){
-		var tmpUser = $scope.dirtyRow;
-		AccountService.update(tmpUser).then(function(){
+	var self = this;
+	self.save = function(user){
+		AccountService.update(user).then(function(){
+			getData();
 			toastService.showSimpleToast("更新成功", "success")
 		}, function(err){
 			toastService.showSimpleToast(err, "error")
 		})
 	}
+
+	
+
+	$scope.edit = function(user) {
+	    $mdDialog.show({
+      		controller: function($scope, $mdDialog, AccountService){
+				$scope.privilegeMap = AccountService.privilegeMap;
+		  		$scope.activeMap = AccountService.activeMap;
+		  		$scope.psdLegel = function(psd){ AccountService.psdLegel(psd) };
+
+		  		$scope.user = user;
+		  		$scope.infUser = {}; angular.copy(user, $scope.infUser);
+		  		$scope.psdUser = {}; $scope.psdUser.username = user.username;	
+
+		  		$scope.save = function(type) { 
+		  			if(type == 'password'){
+		  				$mdDialog.hide($scope.psdUser); 
+		  			}else {
+		  				$mdDialog.hide($scope.infUser); }
+		  		};
+		  		
+			  	$scope.cancel = function() { $mdDialog.cancel(); };
+			},
+	      	templateUrl: './app/components/account/manage/account_manage-pop.html',
+	      	parent: angular.element(document.body),
+	      	//targetEvent: ev,
+	      	clickOutsideToClose:true,
+	      	fullscreen: false
+	    })
+	    .then(function(newUser) {
+    		self.save(newUser);
+	    }, function() {
+	      	console.log("取消保存")
+	    });
+  	};
 })

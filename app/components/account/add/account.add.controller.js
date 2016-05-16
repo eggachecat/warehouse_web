@@ -1,10 +1,6 @@
 app.controller('AccountAddCtrl',function($scope, toastService, AuthService, AccountService){
 	$scope.privilegeMap = AccountService.privilegeMap;
-	$scope.psdLegel = function(psd){
-		if(angular.isUndefined(psd) || psd == null || psd == "")
-			return false;
-		return true;
-	}
+	$scope.psdLegel = function(psd){ AccountService.psdLegel(psd) };
 
 	$scope.signIn = function(user){
 		AuthService.register(user).then(function(){

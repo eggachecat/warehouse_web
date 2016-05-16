@@ -2,7 +2,7 @@
                     style="margin: 40px 350px 10px 350px;">
   <md-icon md-svg-src="./bower_components/ionicons/src/ios-search.svg" class="name"></md-icon>
   <label>搜索關鍵字</label>
-  <input ng-model="filter.search" type="text" autofocus> 
+  <input ng-model="filter.search" type="text"> 
 </md-input-container>
 
 <div class="account"
@@ -13,8 +13,8 @@
 		<div class="md-toolbar-tools">
 			<span>帳號管理</span>
 			<span flex></span>
-       		<md-button class="md-raised md-accent" ng-disabled="dirtyRow == undefined" ng-click="save(dirtyRow);dirtyRow=undefined;">
-       			保存
+       		<md-button class="md-raised md-success">
+       			刷新資料
        		</md-button>	
 		</div>
 	</md-toolbar>
@@ -28,7 +28,7 @@
 				<th md-column md-order-by="email">郵箱</th>
 				<th md-column md-order-by="privilege">權限等級</th>
 				<th md-column md-order-by="lastlogin">上次登入</th>
-				<th md-column>修改信息</th>
+				<th md-column md-order-by="active">活躍</th>
 			</tr>
 			</thead>
 		<tbody md-body>
@@ -37,40 +37,24 @@
 					   filter: filter.search | 
 					   orderBy: query.order | 
 					   limitTo: query.limit : (query.page -1) * query.limit" 
-			ng-init="editable=false">
+			ng-click="edit(user)">
 				<td md-cell class="username">
-					<div>{{user.username}}</div>
+					{{user.username}}
 				</td>
 				<td md-cell class="name">
-					<md-input-container class="md-block" flex-gt-xs>
-						<label>name</label>
-						<input ng-model="user.name" ng-disabled="!editable" >
-					</md-input-container>
+					{{user.name}}
 				</td>
 				<td md-cell class="email">
-					<md-input-container class="md-block" flex-gt-xs>
-						<label>email</label>
-						<input ng-model="user.email" ng-disabled="!editable">
-					</md-input-container>
+					{{user.email}}
 				</td>
 				<td md-cell class="role">
-					<md-input-container class="md-block" flex-gt-xs>
-						<label>role</label>
-						<md-select ng-model="user.privilege" ng-disabled="!editable">
-							<md-option ng-repeat="(privilege,name) in privilegeMap" value="{{privilege}}">
-							{{name}}
-							</md-option>
-						</md-select>
-					</md-input-container>
+					{{privilegeMap[user.privilege]}}
 				</td>
 				<td md-cell class="lastlogin">
 					{{user.lastlogin}}
 				</td>
-				<td md-cell class="lock">
-					<!-- <button  ng-click="echo()">echo</button> -->
-					<div class="button" ng-click="edit(user)">
-						<md-switch  ng-model="editable" aria-label="Edit Lock" ></md-switch>
-					</div>
+				<td md-cell class="active">
+					{{user.active}}
 				</td>
 			</tr>
 		</tbody>
@@ -92,29 +76,15 @@
 .account .md-errors-spacer{
 	display:none !important;
 }
-td.username{
-	width: 10%;
-	/* text-align: center !important; */
-}
-td.name{
-	width: 8%;
-}
-td.email{
-	width: 15%;
-}
-td.role{
-	width: 5%;
-}
-td.lastlogin{
-	width: 15%;
-}
-td.lock{
-	width: 5%;
-}
 tbody input, md-select-value{
 	color:black !important;
 }
 md-input-container label {
 	display: none;
+}
+
+tbody tr[md-row]:hover {
+ 	background-color: #C5CAE9;
+ 	transition: background-color 500ms linear;
 }
 </style>

@@ -7,3 +7,16 @@ md-toast.md-error-toast-theme
     .md-toast-content {
         background-color: #F44336 !important;
     }
+
+
+.md-button.md-success {
+	background-color: #42bd41;
+	color:white;
+}
+.md-button.md-success:not([disabled]):hover {
+ 	background-color: #42bd41;
+}
+.md-button.md-success[disabled] {
+  color : rgba(0, 0, 0, 0.26);
+  background-color: transparent;
+}

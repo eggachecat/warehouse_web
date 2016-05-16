@@ -1,0 +1,128 @@
+<md-dialog aria-label="edit-dialog">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>用戶 {{user.username}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+           <md-icon md-svg-src="./bower_components/ionicons/src/close-round.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="width:400px; height:410px; ">
+
+      <md-tabs md-dynamic-height md-border-bottom>
+
+        <md-tab label="修改信息">
+          <md-content class="md-padding">
+            <h2>用戶信息</h2>
+            <div layout-gt-xs="row">
+              <md-input-container class="title-column">
+                <label>title</label>
+                <input value="電子信箱" disabled>
+              </md-input-container>
+              <md-input-container  md-no-float class="md-block" flex-gt-sm="">
+                <label>電子信箱</label>
+                <input ng-model="infUser.email">
+              </md-input-container>
+            </div>
+
+            <div layout-gt-xs="row">
+              <md-input-container class="title-column">
+                <label>title</label>
+                <input value="用戶權限" disabled>
+              </md-input-container>
+              <md-input-container>
+                <label>權限</label>
+                <md-select ng-model="infUser.privilege">
+                  <md-option ng-repeat="(privilege,name) in privilegeMap" value="{{privilege}}">
+                    {{name}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </md-content>
+          <div layout-gt-xs="row">
+            <span flex></span>
+             <md-button ng-click="cancel()" style="margin-right:20px;" >
+              取消
+            </md-button>
+            <md-button class="md-accent" ng-click="save('information')" style="margin-right:20px;" >
+              修改信息
+            </md-button>
+          </div>
+        </md-tab>
+
+        <md-tab label="修改密碼">
+          <md-content class="md-padding">
+            <h2>修改密碼</h2>
+            <div layout-gt-xs="row">
+              <md-input-container class="title-column">
+                <label>title</label>
+                <input value="新的密碼" disabled>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm="">
+                <label>new psd</label>
+                <input ng-model="psdUser.password" type="password">
+              </md-input-container>
+            </div>
+
+            <div layout-gt-xs="row">
+              <md-input-container class="title-column">
+                <label>title</label>
+                <input value="密碼確認" disabled>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm="">
+                <label>repeat psd</label>
+                <input ng-model="rpassword" type="password">
+              </md-input-container>
+            </div>
+            <div layout-gt-xs="row">
+              <span class="err" 
+               ng-show="psdUser.password !== rpassword">
+                兩次密碼不一致
+              </span>
+            </div>
+          </md-content>
+          <div layout-gt-xs="row">
+            <span flex></span>
+             <md-button ng-click="cancel()" style="margin-right:20px;" >
+              取消
+            </md-button>
+            <md-button class="md-accent"  ng-disabled="psdUser.password !== rpassword"
+                      ng-click="save('password')" style="margin-right:20px;" >
+              修改密碼
+            </md-button>
+          </div>
+        </md-tab>
+
+        <md-tab label="解鎖帳戶">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Tab Three</h1>
+           
+          </md-content>
+        </md-tab>
+
+      </md-tabs>
+    </md-dialog-content>
+
+  <!--   <md-dialog-actions layout="row">
+      <md-button class="md-accent" ng-click="cancel()" style="margin-right:20px;" >
+        結束
+      </md-button>
+    </md-dialog-actions> -->
+  </form>
+</md-dialog>
+
+<style type="text/css">
+.title-column {
+  width: 20% !important;
+}
+.title-column input{
+  background: none !important;
+  color: black !important;
+}
+ .err {
+    color:red;
+  }
+</style>
