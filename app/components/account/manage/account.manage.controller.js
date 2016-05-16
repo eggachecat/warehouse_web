@@ -1,6 +1,10 @@
 app.controller('AccountManageCtrl', function($scope, AuthService, AccountService, toastService, $mdDialog){
 	$scope.privilegeMap = AccountService.privilegeMap;
-	
+	$scope.query = {
+		order: 'username',
+		limit: 5,
+		page: 1
+	};	
 	
 
 	function getData(){
