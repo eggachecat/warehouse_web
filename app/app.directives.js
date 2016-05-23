@@ -31,10 +31,20 @@ app.directive('restricted', ['AuthService', function(AuthService){
 	};
 }]);
 
+app.directive('barCodeImage', function(){
+
+    return {
+        restrict: 'A',
+        link: function($scope, iElm, iAttrs) {
+             $scope[iAttrs.barCodeImage] = iElm;
+        }
+    };
+});
+
 app.directive('barCode', function(){
 
     return {
-        template: '<img id="barcode" style="float:right;"></img>',
+        template: '<img id="barcode" bar-code-image="img" style="float:right;"></img>',
         link: function($scope, iElm, iAttrs, controller) {
             console.log(iAttrs["codeValue"]);
 
@@ -44,14 +54,22 @@ app.directive('barCode', function(){
                 }
                 JsBarcode("#barcode", String(value), {
                     width: 2,
-                    height: 75, 
+                    height: 150, 
+                    displayValue: true,
                     ineColor: "#0cc"
                 });
                 
             })   
+
+            $scope.barCodeDownload = function(){
+                var dataSrc = $scope.img[0].src;
+                var url = dataSrc.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+                location.href = url;
+            }
         }
     };
 });
+
 app.directive('print', function(PrintService, CanvasService){
     // Runs during compile
     return {

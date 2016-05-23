@@ -9,8 +9,8 @@
       <span>訂單信息</span>
       <span flex></span>
       <md-button class="md-raised md-warn" 
-                 ng-click="generateBarcode()"
-                 ng-disabled="userForm.$invalid">生成條形碼</md-button>
+                 ng-click="add(order)"
+                 ng-disabled="userForm.$invalid">新增料號</md-button>
     </h2>
   </md-toolbar>
 
@@ -21,20 +21,25 @@
                      overflow: hidden;
                      border-color: #3F51B5;">
     <form name="userForm" print>
-      <div layout-gt-xs="row">
+     <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>品名</label>
+          <input ng-model="order.itemname">
+        </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
           <label>編輯人員代號</label>
-          <input ng-model="order.editorId">
+          <input ng-model="order.responser">
         </md-input-container>
-
+      </div>
+      <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>公司料號</label>
-          <input ng-model="order.companyId">
+          <label>場內料號</label>
+          <input ng-model="order.internalpartno">
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>客戶料號</label>
-          <input ng-model="order.customerId">
+          <input ng-model="order.externalpartno">
         </md-input-container>
       </div>
 
@@ -42,36 +47,31 @@
       <div layout-gt-xs="row"> 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>備註</label>
-          <input ng-model="order.remark" required>
+          <input ng-model="order.note" required>
         </md-input-container>
       </div>
 
       <div layout-gt-xs="row">
        <md-input-container class="md-block" flex-gt-sm="">
-          <label>哈希值(自動生成)</label>
-          <input ng-model="order.barcode"
-                 style="color: #F44336;" disabled="">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm="">
           <label>條形碼(自動生成)</label>
           <input ng-model="order.barcode"
                  style="color: #F44336;" disabled="">
         </md-input-container>
-        <div bar-code code-value="order.barcode" class="no-code-value"></div>
+  
+        <div bar-code code-value="barcode" class="no-code-value">
+          <a></a>
+        </div>
 
       </div>
 
     </form>
   </md-content>
 
-  <!-- <img id="barcode" barcode="{{order.barcode}}"></img> -->
-<!--   <div bar-code code-value="order.barcode"></div>
- -->
 
   <md-button  class="md-raised md-primary" 
                   ng-click="printPreview()"
                   ng-disabled="(userForm.$invalid) || (!order.barcode)"
-                  style="margin: 10px 0px 0px 0px;">新增</md-button>
+                  style="margin: 10px 0px 0px 0px;">下載條碼</md-button>
 
 </div>
 

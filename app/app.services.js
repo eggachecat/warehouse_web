@@ -18,7 +18,7 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state)
 		isAuthenticated = true;
 		authToken = token;
 		tokenObj = decodeData(token)
-
+		console.log(tokenObj)
 		// Get Role
 		userRole = AUTH_ROLES[getPrivilege(tokenObj)];
 	

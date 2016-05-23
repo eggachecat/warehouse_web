@@ -10,7 +10,7 @@
       <span flex></span>
       <md-button  class="md-raised md-warn" 
                 ng-click="generateBarcode()"
-                ng-disabled="userForm.$invalid">生成條形碼</md-button>
+                ng-disabled="userForm.$invalid">新增</md-button>
     </h2>
   </md-toolbar>
 
@@ -62,23 +62,20 @@
 
       <div layout-gt-xs="row">
        <md-input-container class="md-block" flex-gt-sm="">
-          <label>哈希值(自動生成)</label>
-          <input ng-model="products.barcode"
-                 style="color: #F44336;" disabled="">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm="">
           <label>條形碼(自動生成)</label>
           <input ng-model="products.barcode"
                  style="color: #F44336;" disabled="">
         </md-input-container>
-        <div bar-code code-value="products.barcode" class="no-code-value"></div>
+        <md-input-container class="md-block" flex-gt-sm="">
+          <div bar-code code-value="products.barcode" class="no-code-value"></div>
+        </md-input-container>
       </div>
 
     </form>
   </md-content>
 
   <md-button  class="md-raised md-primary" 
-                  ng-click="printBarcode()"
+                  ng-click="barCodeDownload()"
                   ng-disabled="(userForm.$invalid) || (!products.barcode)"
                   style="margin: 10px 0px 0px 0px;">打印條形碼</md-button>
 

@@ -1,17 +1,8 @@
-app.factory('PartnoService', ['$q', 'AuthService', 'CommonService', '$http',
-	function($q, AuthService, CommonService, $http){
-		var url = CommonService.getRequestUrl();
-		var add = function() {
-			var targetUrl = url + "/storage/first"
+app.service('PartnoService', function(DataService, CommonService, $http){
 
-			$http.post(url).then(function(res){
-
-			})
-
-			return deferred.promise;
-		}
-		return {
-		}
+	
+	this.add = function(order){
+		return DataService.post("/warehouse/add", order)
 	}
-])
+})
 
