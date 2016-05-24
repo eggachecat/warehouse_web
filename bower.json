@@ -21,6 +21,7 @@
     "html2canvas": "~0.4.1",
     "angular-material-data-table": "~0.10.0",
     "angular-mocks": "^1.5.5",
-    "jasmine-core": "jasmine#^2.4.1"
+    "jasmine-core": "jasmine#^2.4.1",
+    "angular-file-saver": "^1.1.1"
   }
 }

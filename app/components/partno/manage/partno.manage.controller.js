@@ -9,40 +9,29 @@ app.controller('PartnoManageCtrl', ['$scope', 'barcodeService', 'toastService', 
 			page: 1
 		};
 
-		$scope.desserts = {
-			count: 6,
-			data: [{
-				editorId: 233,
-				companyId: 1333,
-				customerId: 23333,
-				remark: "abv"
-			},{
-				editorId: 1233,
-				companyId: 2333,
-				customerId: 23333,
-				remark: "cds"
-			},{
-				editorId: 1233,
-				companyId: 333,
-				customerId: 3333,
-				remark: "bs"
-			},{
-				editorId: 1233,
-				companyId: "2333",
-				customerId: "23333",
-				remark: "133333"
-			},{
-				editorId: 1233,
-				companyId: "2333",
-				customerId: "23333",
-				remark: "233333"
-			},{
-				editorId: 1233,
-				companyId: "2333",
-				customerId: "23333",
-				remark: "333333"
-			}]
+		$scope.columnMap = {internalpartno: "內部料號", externalpartno: "外部料號", itemname: "產品名稱", reservbarcode: "料號條碼"};
+		$scope.columns = ["reservbarcode", "internalpartno", "externalpartno", "itemname"]
+		$scope.activeColumns = ["reservbarcode"]
+		$scope.coulumnNum = 1;
+
+		$scope.searchObj = {}
+
+		$scope.search = function(){
+			PartnoService.read($scope.searchObj).then(function(){
+				toastService.showSimpleToast("更新成功", "success")
+			}, function(err){
+				toastService.showSimpleToast(err, "error")
+			})
 		}
+		$scope.addColumn = function(){
+			$scope.coulumnNum += 1;
+		}
+
+		$scope.range = function(n) {
+	        return new Array(n);
+	    };
+
+		$scope.desserts = {}
 
 		
 		

@@ -109,7 +109,7 @@ app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   };
 })
  
-app.factory('barcodeService', function(){
+app.factory('barcodeService', function(FileSaver){
 	var generate = function(){
 	  function uuid() {
 	    return Math.floor((1 + Math.random()) * 0x10000)
@@ -119,8 +119,30 @@ app.factory('barcodeService', function(){
 	  return uuid() + uuid() + uuid() 
 	}
 
+	var download = function(dataSrc){        
+        FileSaver.saveAs(dataURLToBlob(dataSrc),  self.fileName)
+    }
+
+    function dataURLToBlob(dataURL) {
+        var BASE64_MARKER = ';base64,';
+      
+        var parts = dataURL.split(BASE64_MARKER);
+        var contentType = parts[0].split(':')[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+
+        var uInt8Array = new Uint8Array(rawLength);
+
+        for (var i = 0; i < rawLength; ++i) {
+          uInt8Array[i] = raw.charCodeAt(i);
+        }
+
+        return new Blob([uInt8Array], {type: contentType});
+    }
+
 	return {
-		generate: generate
+		generate: generate,
+		download: download
 	}
 
 });
@@ -174,7 +196,7 @@ app.factory('CommonService', ['$http', function($http){
 			console.log(serverUrl)
 		})
 	}
-	//getServerUrl();
+	
 	return {
 		getRequestUrl: function(){
 			return serverUrl;
@@ -196,9 +218,13 @@ app.factory('DataService', ['API_ENDPOINT', '$q', '$http', function(API_ENDPOINT
 		return deferred.promise
 	}
 
-	function get(dstUrl){
+	function get(dstUrl, params){
 		dstUrl =  API_ENDPOINT.url + dstUrl
-		return requestServer($http.get(dstUrl))
+		if(angular.isUndefined(params)){
+			return requestServer($http.get(dstUrl))
+		}
+		
+		return requestServer($http.get(dstUrl, {params: params}))
 	}
 	function post(dstUrl, data){
 		console.log(data)

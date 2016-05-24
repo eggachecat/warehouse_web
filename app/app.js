@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngAnimate', "ui.router", 'ngMaterial', 'ngMessages', 'md.data.table']);
+var app = angular.module('app', ['ngAnimate', "ui.router", 'ngMaterial', 'ngMessages', 'md.data.table', 'ngFileSaver']);
 
 app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$locationProvider', '$httpProvider',
 	function($stateProvider, $urlRouterProvider, $mdThemingProvider, $locationProvider, $httpProvider) {

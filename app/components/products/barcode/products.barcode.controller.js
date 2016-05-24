@@ -18,4 +18,4 @@ app.controller('ProductsBarcodeCtrl', ['$scope', 'barcodeService', 'toastService
 	$scope.printBarcode = function(){
 		$scope.toPrint = true;
 	}
-}])
+}]) 

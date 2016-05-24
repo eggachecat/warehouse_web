@@ -41,17 +41,18 @@ app.directive('barCodeImage', function(){
     };
 });
 
-app.directive('barCode', function(){
-
+app.directive('barCode', function(barcodeService){
     return {
         template: '<img id="barcode" bar-code-image="img" style="float:right;"></img>',
         link: function($scope, iElm, iAttrs, controller) {
-            console.log(iAttrs["codeValue"]);
+            var self = this;
+            self.fileName = "";
 
             $scope.$watch(iAttrs.codeValue, function(value){
                 if(value === undefined) {
                     return
                 }
+                self.fileName = value + ".png";
                 JsBarcode("#barcode", String(value), {
                     width: 2,
                     height: 150, 
@@ -62,10 +63,9 @@ app.directive('barCode', function(){
             })   
 
             $scope.barCodeDownload = function(){
-                var dataSrc = $scope.img[0].src;
-                var url = dataSrc.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-                location.href = url;
+                barcodeService.download( $scope.img[0].src, self.fileName)
             }
+
         }
     };
 });

@@ -1,21 +1,50 @@
-<md-input-container class="md-icon-float md-block"
+<!-- <md-input-container class="md-icon-float md-block"
                     style="margin: 40px 350px 10px 350px;">
   <md-icon md-svg-src="./bower_components/ionicons/src/ios-search.svg" class="name"></md-icon>
   <label>搜索關鍵字</label>
   <input ng-model="keyword" type="text" autofocus> 
-</md-input-container>
+</md-input-container> -->
 
 <div class="manage-partno"
-     style="margin: 0px 15px;
+     style="width: 40%; margin: auto; margin-top:40px;
             border: 2px solid #3F51B5;">  
 
   <md-toolbar class="light-blue md-table-toolbar">
     <div class="md-toolbar-tools">
-      <span>料號單</span>
+      <span>搜尋料號單</span>
       <span flex></span>
-      <md-button class="md-raised md-warn">匯出</md-button>
+      <md-button class="md-raised md-success" ng-click="search()">
+        搜尋
+       </md-button>
     </div>
   </md-toolbar>
+  <form name="partoNoSearchForm">
+   <div layout-gt-xs="row" ng-repeat="idx in range(coulumnNum) track by $index">
+
+      <md-input-container md-no-float>
+        <md-select ng-model="columnName" ng-required="true" placeholder="搜索關鍵字">
+          <md-option ng-repeat="(column, name) in columnMap" value="{{column}}">
+            {{name}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+
+      <md-input-container md-no-float class="md-block" flex-gt-sm="">
+        <label></label>
+        <input ng-model="searchObj[columnName]"  ng-required="true">
+      </md-input-container>
+
+    </div>
+  </form>
+
+  <div layout-gt-xs="row">
+    <span flex></span>
+    <md-button class="md-icon-button md-accent" md-accent aria-label="More"  ng-click="addColumn()">
+     <md-icon md-svg-icon="./bower_components/ionicons/src/plus-round.svg"></md-icon>
+    </md-button>
+  </div>
+  </div>
 
   <!-- exact table from live demo -->
   <md-table-container>
@@ -49,7 +78,7 @@
                         md-options="[5,6,7]"
                         md-page-select>
   </md-table-pagination>
-</div>
+
 
 <style type="text/css" media="screen">
 .md-table-search-inbox{
@@ -60,6 +89,10 @@
 }
 .md-cell {
   text-align: left !important;
+}
+.manage-partno md-input-container {
+  margin-bottom: 0px !important;
+  margin-top: 10px !important;
 }
 
 </style>
