@@ -4,7 +4,6 @@ app.controller('PartnoManageCtrl', ['$scope', 'barcodeService', 'toastService', 
 		$scope.selected = [];
 		$scope.tags = [];
 		$scope.query = {
-			order: 'editorId',
 			limit: 5,
 			page: 1
 		};
@@ -16,8 +15,11 @@ app.controller('PartnoManageCtrl', ['$scope', 'barcodeService', 'toastService', 
 
 		$scope.searchObj = {}
 
+		$scope.results = []
+
 		$scope.search = function(){
-			PartnoService.read($scope.searchObj).then(function(){
+			PartnoService.read($scope.searchObj).then(function(res){
+				$scope.results = res.data;
 				toastService.showSimpleToast("更新成功", "success")
 			}, function(err){
 				toastService.showSimpleToast(err, "error")

@@ -55,7 +55,7 @@ app.directive('barCode', function(barcodeService){
                 self.fileName = value + ".png";
                 JsBarcode("#barcode", String(value), {
                     width: 2,
-                    height: 150, 
+                    height: 120, 
                     displayValue: true,
                     ineColor: "#0cc"
                 });

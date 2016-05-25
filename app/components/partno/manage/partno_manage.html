@@ -48,25 +48,27 @@
 
   <!-- exact table from live demo -->
   <md-table-container>
-    <table md-table md-row-select ng-model="selected" md-progress="promise">
-      <thead md-head md-order="query.order" md-on-reorder="onReorder">
+    <table md-table md-progress="promise">
+      <thead md-head md-order="internalpartno" md-on-reorder="onReorder">
         <tr md-row>
-          <th md-column md-order-by="editorId"><span>錄入人員</span></th>
-          <th md-column md-order-by="companyId">公司料號</th>
-          <th md-column md-order-by="customerId">顧客料號</th>
-          <th md-column md-order-by="remark">備註</th>
-          <th md-column md-order-by="editorId">條形碼</th>
+          <th md-column md-order-by="internalpartno"><span>內部料號</span></th>
+          <th md-column md-order-by="externalpartno">外部料號</th>
+          <th md-column md-order-by="itemname">品名</th>
+          <th md-column md-order-by="note">備註</th>
+          <th md-column md-order-by="reservbarcode">條形碼</th>
         </tr>
       
       </thead>
       <tbody md-body>
-        <tr md-row md-select="dessert" md-select-id="{{dessert.name}}" md-auto-select 
-            ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-          <td md-cell>{{dessert.editorId}}</td>
-          <td md-cell>{{dessert.companyId}}</td>
-          <td md-cell>{{dessert.customerId}}</td>
-          <td md-cell>{{dessert.remark}}</td>
-          <td md-cell>{{dessert.remark}}</td>
+        <tr md-row ng-repeat="result in results | 
+                              filter: filter.search | 
+                              orderBy: query.order | 
+                              limitTo: query.limit : (query.page -1) * query.limit">
+          <td md-cell>{{result.internalpartno}}</td>
+          <td md-cell>{{result.externalpartno}}</td>
+          <td md-cell>{{result.itemname}}</td>
+          <td md-cell>{{result.note}}</td>
+          <td md-cell>{{result.reservbarcode}}</td>
         </tr>
       </tbody>
     </table>
@@ -74,7 +76,6 @@
 
   <md-table-pagination  md-limit="query.limit" 
                         md-page="query.page" 
-                        md-total="{{desserts.count}}" 
                         md-options="[5,6,7]"
                         md-page-select>
   </md-table-pagination>
