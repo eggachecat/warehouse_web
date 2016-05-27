@@ -22,19 +22,19 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 		    	abstract: true,
 		    	controller: "NavCtrl",
 		    	templateUrl: "./app/components/navi/navi.html",
-		    })	.state('main.products_barcode', {
-					url: "/products/barcode",
-					controller: "ProductsBarcodeCtrl",
-					templateUrl: "./app/components/products/barcode/products_barcode.html"
-			    }).state('main.products_enter', {
-					url: "/products/enter",
-					controller: "ProductsEnterCtrl",
-					templateUrl: "./app/components/products/enter/products_enter.html"
+		    })	.state('main.product_barcode', {
+					url: "/product/barcode",
+					controller: "ProductBarcodeCtrl",
+					templateUrl: "./app/components/product/barcode/product_barcode.html"
+			    }).state('main.product_enter', {
+					url: "/product/enter",
+					controller: "ProductEnterCtrl",
+					templateUrl: "./app/components/product/enter/product_enter.html"
 			    })
-		    	.state('main.products_out', {
-					url: "/products/out",
-					controller: "ProductsOutCtrl",
-					templateUrl: "./app/components/products/out/products_out.html"
+		    	.state('main.product_out', {
+					url: "/product/out",
+					controller: "ProductOutCtrl",
+					templateUrl: "./app/components/product/out/product_out.html"
 			    })
 			   .state('main.partno_add', {
 					url: "/partno/add",

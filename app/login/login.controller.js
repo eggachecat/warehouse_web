@@ -7,7 +7,7 @@ app.controller('LoginCtrl', ['$scope', 'barcodeService', 'toastService', 'Partno
 			customerId: 123,
 			remark:"hehe",
 		}
-		// $state.go("main.products_barcode"); 
+		$state.go("main.product_barcode"); 
 			// if not authed should be prevented
 		$scope.dirtyRow = undefined;
 

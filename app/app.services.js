@@ -17,7 +17,7 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state,
 	function useCredentials(token) {
 		
 		
-		
+		isAuthenticated = true;
 		authToken = token;
 		tokenObj = decodeData(token)
 		console.log(tokenObj)
@@ -27,12 +27,12 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state,
 		// Set the token as header for your requests!
 		$http.defaults.headers.common.token = authToken;
 
-		DataService.post("/user/token/valid").then(function(){
-			isAuthenticated = true;
-			$state.go("main.products_barcode"); 
-		}, function(){
-			alert("re-login");
-		})
+		// DataService.post("/user/token/valid").then(function(){
+		// 	isAuthenticated = true;
+		// 	$state.go("main.product_barcode"); 
+		// }, function(){
+		// 	alert("re-login");
+		// })
 	}
  
  	function loadUserCredentials() {
@@ -267,3 +267,17 @@ app.service('toastService', ['$mdToast', function($mdToast){
 	  	);
 	};
 }])
+
+// app.directive('keyboard', ['$timeout', function($timeout) {
+//   return {
+//     restrict: 'AE',
+//     controller: function($scope){
+//     	$scope.keyDown = function(e){
+//     		console.log("key", e.keyCode)
+//     		key = e.keyCode == 13 ? "enter" : e.keyCode - 48;
+    		
+//     		$scope.$broadcast("key-down", key);
+//     	}
+//     }
+//   }
+// }]);

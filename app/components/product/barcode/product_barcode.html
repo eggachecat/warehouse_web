@@ -2,18 +2,17 @@
      layout="column" class="md-inline-form inputdemoBasicUsage" 
      style="width: 864px; 
             margin: auto;
-            padding-top: 60px;">
+            padding-top: 20px;">
 
   <md-toolbar class="light-blue">
     <h2 class="md-toolbar-tools">
-      <span>產品入庫信息</span>
+      <span>產品條碼</span>       
       <span flex></span>
       <md-button  class="md-raised md-warn" 
-                ng-click="generateBarcode()"
+                ng-click="createStorage()"
                 ng-disabled="userForm.$invalid">新增</md-button>
     </h2>
   </md-toolbar>
-
 
   <md-content layout-padding="" 
               style="border-width: 0px 2px 2px 2px; 
@@ -23,55 +22,73 @@
     <form name="userForm">
       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>編輯人員代號</label>
-          <input ng-model="products.editorId">
+          <label>訂單料號(掃碼讀入)</label>
+          <input ng-keydown="watchKey($event)" ng-model="product.reservbarcode">
         </md-input-container>
+      </div>
+
+       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>公司料號(掃碼讀入)</label>
-          <input ng-model="products.companyId"
+          <label>品名</label>
+          <input ng-model="partno.itemname"
                  style="color: #F44336;" disabled="">
         </md-input-container>
+
+         <md-input-container class="md-block" flex-gt-sm="">
+          <label>備註</label>
+          <input ng-model="partno.note"
+                 style="color: #F44336;" disabled="">
+        </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>客戶料號(掃碼讀入)</label>
-          <input ng-model="products.customerId"
+          <label>客戶料號</label>
+          <input ng-model="partno.externalpartno"
+                 style="color: #F44336;" disabled="">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>廠內料號</label>
+          <input ng-model="partno.internalpartno"
                  style="color: #F44336;" disabled="">
         </md-input-container>
       </div>
 
 
       <div layout-gt-xs="row"> 
-        <md-input-container class="md-block" flex-gt-sm="">
-          <label>貨品編號</label>
-          <input ng-model="products.id" required>
-        </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>貨品數量</label>
-          <input ng-model="products.amount" type="number" required>
+          <input ng-model="product.num" type="number" required>
         </md-input-container>
-        <!-- <md-datepicker ng-model="products.birthday" md-placeholder="產出月份" flex-gt-sm="" required></md-datepicker> -->
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>多少份</label>
+          <input ng-model="product.numperitem" type="number" required>
+        </md-input-container>
+       
         <md-input-container class="md-block" flex-gt-sm="">
           <label>月份週期</label>
-          <input ng-model="products.perid" required>
+          <input ng-model="product.producetime" required>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
           <label>存放位置</label>
-          <input ng-model="products.location" required>
+          <input ng-model="product.location" required>
         </md-input-container>
       </div>
 
       <div layout-gt-xs="row">
-       <md-input-container class="md-block" flex-gt-sm="">
-          <label>條形碼(自動生成)</label>
-          <input ng-model="products.barcode"
+       <md-input-container class="md-block" flex="25" flex-gt-sm="">
+          <label>貨品編號(自動生成)</label>
+          <input ng-model="barcode"
                  style="color: #F44336;" disabled="">
         </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm="">
-          <div bar-code code-value="products.barcode" class="no-code-value"></div>
-        </md-input-container>
+         <span flex>
+        <div bar-code code-value="barcode" class="no-code-value"></div>
       </div>
 
-    </form>
+    </form> 
   </md-content>
 
   <md-button  class="md-raised md-primary" 
@@ -84,5 +101,11 @@
 <style type="text/css" media="screen">
   .inputdemoBasicUsage .md-datepicker-button {
     width: 36px; 
+  }
+  .no-code-value {
+    background-color: white;
+    width: 350px;
+    height: 120px;
+    float:right;
   }
 </style>
