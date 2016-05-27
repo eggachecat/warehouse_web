@@ -1,4 +1,4 @@
-app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state) {
+app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state, DataService) {
 	var LOCAL_TOKEN_KEY = 'warehouse:auth-token-key';
 	var isAuthenticated = false;
 	var userRole = AUTH_ROLES["privilege-3"];// Guest
@@ -15,7 +15,9 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state)
 	}
 
 	function useCredentials(token) {
-		isAuthenticated = true;
+		
+		
+		
 		authToken = token;
 		tokenObj = decodeData(token)
 		console.log(tokenObj)
@@ -24,6 +26,13 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state)
 	
 		// Set the token as header for your requests!
 		$http.defaults.headers.common.token = authToken;
+
+		DataService.post("/user/token/valid").then(function(){
+			isAuthenticated = true;
+			$state.go("main.products_barcode"); 
+		}, function(){
+			alert("re-login");
+		})
 	}
  
  	function loadUserCredentials() {
