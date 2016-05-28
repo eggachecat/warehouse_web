@@ -21,6 +21,12 @@ app.service('ProductService', function(DataService, CommonService, $http){
 		return DataService.post("/warehouse/storage", obj);
 	}
 
+	this.update_product = function(obj){
+		obj.type = "storage"
+		console.log(obj)
+		return DataService.post("/warehouse/update", obj);
+	}
+
 	this.export = function(obj){
 		return DataService.post("/warehouse/export", obj);
 	}

@@ -1,0 +1,90 @@
+<div ng-cloak="" 
+     layout="column" class="md-inline-form inputdemoBasicUsage" 
+     style="width: 864px; 
+            margin: auto;
+            padding-top: 60px;">
+
+  <md-toolbar class="light-blue">
+    <h2 class="md-toolbar-tools">
+      <span>產品更新</span>
+      <span flex></span>
+      <span>編輯</span>&nbsp;&nbsp;
+      <md-switch ng-model="editable" aria-label="Switch 1"></md-switch>
+    </h2>
+  </md-toolbar>
+
+
+  <md-content layout-padding="" 
+              style="border-width: 0px 2px 2px 2px; 
+                     border-style: solid;
+                     overflow: hidden;
+                     border-color: #3F51B5;">
+    <form name="userForm">
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>產品料號</label>
+          <input autofocus ng-keydown="watchKey($event)" ng-model="productInfo.storagebarcode" required >
+        </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>品名</label>
+          <input ng-model="productInfo.itemname"
+                 style="color: #F44336;" ng-disabled="!editable">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>客戶料號</label>
+          <input ng-model="productInfo.externalpartno"
+                 style="color: #F44336;" ng-disabled="!editable">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>廠內料號</label>
+          <input ng-model="productInfo.internalpartno"
+                 style="color: #F44336;" ng-disabled="!editable">
+        </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row"> 
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>貨品數量</label>
+          <input ng-model="productInfo.num"
+                 style="color: #F44336;"  ng-disabled="!editable">
+        </md-input-container>
+    
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>月份週期</label>
+          <input ng-model="productInfo.producetime" 
+                 style="color: #F44336;" ng-disabled="!editable">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>存放位置</label>
+          <input ng-model="productInfo.location" 
+                 style="color: #F44336;" ng-disabled="!editable">
+        </md-input-container>
+      </div>
+
+    </form>
+  </md-content>
+
+   <section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
+      <md-button class="md-raised" 
+                  ng-disabled="(userForm.$invalid) || (productInfo.itemname == undefined)">
+        取消
+      </md-button>
+      <md-button  class="md-raised md-primary" 
+                   ng-click="update()"
+                   ng-disabled="(userForm.$invalid) || (productInfo.itemname == undefined)">
+                   更新
+      </md-button>
+    </section>
+</div>
+
+<style type="text/css" media="screen">
+  .inputdemoBasicUsage .md-datepicker-button {
+    width: 36px; 
+  }
+</style>

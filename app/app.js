@@ -36,6 +36,11 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 					controller: "ProductOutCtrl",
 					templateUrl: "./app/components/product/out/product_out.html"
 			    })
+			    .state('main.product_update', {
+					url: "/product/update",
+					controller: "ProductUpdateCtrl",
+					templateUrl: "./app/components/product/update/product_update.html"
+			    })
 			   .state('main.partno_add', {
 					url: "/partno/add",
 					controller: "PartnoAddCtrl",
