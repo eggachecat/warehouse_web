@@ -4,6 +4,10 @@ app.controller('ProductBarcodeCtrl', function($scope, barcodeService, toastServi
 	$scope.partno = {};
 	$scope.query = {};
 
+	$scope.barcodeObjs = [];
+	$scope.barcodeRows = [];
+
+	$scope.downloadBarcode = function(filename){ barcodeService.callToDownload(filename); }
 
 	$scope.watchKey = function(e){
 		if(e.keyCode == 9 || e.keyCode == 13){ // tab keyCode
@@ -14,13 +18,11 @@ app.controller('ProductBarcodeCtrl', function($scope, barcodeService, toastServi
 		}
 	}
 
-	$scope.generateBarcode = function(){
-		$scope.products.barcode = barcodeService.generate();
-		toastService.showSimpleToast("Generate Barcode: " + $scope.products.barcode, 30000);
-	
-	}
-	$scope.printBarcode = function(){
-		$scope.toPrint = true;
+	function layoutBarcode(){
+		$scope.barcodeRows = [];
+		while ($scope.barcodeObjs.length) {
+		    $scope.barcodeRows.push($scope.barcodeObjs.splice(0, 2))
+		}
 	}
 
 	$scope.createStorage = function(){
@@ -28,8 +30,24 @@ app.controller('ProductBarcodeCtrl', function($scope, barcodeService, toastServi
 		.then(function(res){
 			console.log(res)
 			toastService.showSimpleToast("產品新增成功", "success")
-			$scope.barcode = res.data[0].storagebarcode;
-		}, function(){});
+			$scope.barcodeObjs = res.data;
+			layoutBarcode();
+		}, function(err){
+			console.log(err)
+			toastService.showSimpleToast(err.message, "error")
+		});
 	} 
+
+	// $scope.test_barcodeObjs = ["111111111111", "222222222222", "0000000000000"];
+	// $scope.test_barcodeRows = [];
+	// function test_layoutBarcode(){
+	// 	$scope.test_barcodeRows = [];
+	// 	while ($scope.test_barcodeObjs.length) {
+	// 	    $scope.test_barcodeRows.push($scope.test_barcodeObjs.splice(0, 2))
+	// 	}
+	// }
+	// test_layoutBarcode();
+	
+
 
 }) 

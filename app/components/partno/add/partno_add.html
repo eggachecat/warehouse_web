@@ -59,17 +59,17 @@
         </md-input-container>
         <span flex>
         
-        <div bar-code code-value="barcode" class="no-code-value"></div>
+        <img bar-code code-value="{{barcode}}" class="no-code-value"></img>
     
 
       </div>
-
+ 
     </form>
   </md-content>
 
 
   <md-button  class="md-raised md-primary" 
-                  ng-click="barCodeDownload()"
+                  ng-click="downloadBarcode(barcode)"
                   ng-disabled="!barcode"
                   style="margin: 10px 0px 0px 0px;">下載條碼</md-button>
 

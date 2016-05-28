@@ -3,6 +3,8 @@ app.controller('PartnoAddCtrl', ['$scope', 'barcodeService', 'toastService', 'Pa
 		// PartnoService.sayHello();
 		$scope.order = {} 
 
+		$scope.downloadBarcode = function(filename){ barcodeService.callToDownload(filename); }
+
 		$scope.add = function(order){
 			PartnoService.add(order).then(function(res){
 				toastService.showSimpleToast("新增料號成功", "success")
@@ -13,4 +15,4 @@ app.controller('PartnoAddCtrl', ['$scope', 'barcodeService', 'toastService', 'Pa
 		}
 
 	} 
-]);
+]); 

@@ -19,7 +19,7 @@ app.controller('LoginCtrl', ['$scope', 'barcodeService', 'toastService', 'Partno
 
 		$scope.onSubmit = function(user){
 			AuthService.login(user).then(function(data){
-				$state.go("main.products_barcode");
+				$state.go("main.product_barcode");
 			}, function(error){
 				alert(error)
 			});

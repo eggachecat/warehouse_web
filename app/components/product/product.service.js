@@ -7,8 +7,22 @@ app.service('ProductService', function(DataService, CommonService, $http){
 		return DataService.get("/warehouse/list", params)
 	}
 
+	this.read_product = function(params){
+		params.type = "storage"
+		console.log(params)
+		return DataService.get("/warehouse/list", params)
+	}
+
 	this.create_storage = function(data){
 		return DataService.post("/warehouse/createStorage", data)
+	}
+
+	this.import = function(obj){
+		return DataService.post("/warehouse/storage", obj);
+	}
+
+	this.export = function(obj){
+		return DataService.post("/warehouse/export", obj);
 	}
 })
 

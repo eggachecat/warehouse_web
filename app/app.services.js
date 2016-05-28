@@ -118,7 +118,7 @@ app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   };
 })
  
-app.factory('barcodeService', function(FileSaver){
+app.factory('barcodeService', function(FileSaver, $rootScope){
 	var generate = function(){
 	  function uuid() {
 	    return Math.floor((1 + Math.random()) * 0x10000)
@@ -128,8 +128,8 @@ app.factory('barcodeService', function(FileSaver){
 	  return uuid() + uuid() + uuid() 
 	}
 
-	var download = function(dataSrc){        
-        FileSaver.saveAs(dataURLToBlob(dataSrc),  self.fileName)
+	var download = function(dataSrc, fileName){        
+        FileSaver.saveAs(dataURLToBlob(dataSrc),  fileName)
     }
 
     function dataURLToBlob(dataURL) {
@@ -149,9 +149,14 @@ app.factory('barcodeService', function(FileSaver){
         return new Blob([uInt8Array], {type: contentType});
     }
 
+    var callToDownload = function(fileName){
+    	$rootScope.$broadcast('download-barcode', {key: fileName});
+    }
+
 	return {
 		generate: generate,
-		download: download
+		download: download,
+		callToDownload: callToDownload
 	}
 
 });
@@ -221,7 +226,8 @@ app.factory('DataService', ['API_ENDPOINT', '$q', '$http', function(API_ENDPOINT
 			if(result.data.valid){
 				deferred.resolve(result.data);
 			}else{
-				deferred.reject(result.data.msg);
+			
+				deferred.reject(result.data);
 			}
 		})
 		return deferred.promise

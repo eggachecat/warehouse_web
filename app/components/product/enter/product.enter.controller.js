@@ -1,18 +1,31 @@
-app.controller('ProductEnterCtrl', ['$scope', 'toastService',function($scope, toastService){
+app.controller('ProductEnterCtrl', ['$scope', 'toastService', 'ProductService', '$state', function($scope, toastService, ProductService, $state){
 
-	var user = {
-		id: "23333"
-	};
-	
-	$scope.goods = {}
-	$scope.goods.editorId = user.id;
+	$scope.importProduct = {};
+	$scope.productInfo = {}
 
-	$scope.generateBarcode = function(){
-		$scope.goods.barcode = 123123121;
-		toastService.showSimpleToast("Generate Barcode" + $scope.goods.barcode, 30000);
+	$scope.watchKey = function(e){
+		if(e.keyCode == 9 || e.keyCode == 13){ // tab keyCode
+			ProductService.read_product($scope.importProduct)
+			.then(function(res){
+				$scope.productInfo = res.data[0];
+			})
+		}
 	}
 
-	$scope.onSubmit = function(){
-		toastService.showSimpleToast("Generate Hash Code", 30000);
+	$scope.import = function(){
+		ProductService.import($scope.importProduct)
+		.then(function(res){
+			console.log(res)
+			toastService.showSimpleToast("產品入庫成功", "success")
+			$state.reload();
+		}, function(err){
+			var errMsg = err.message || "產品入庫失敗"
+			toastService.showSimpleToast(errMsg, "error")
+		});
 	}
+
+
 }]);
+
+
+// cf97ef228e234499

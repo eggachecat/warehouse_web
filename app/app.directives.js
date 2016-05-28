@@ -3,72 +3,79 @@ app.directive('restricted', ['AuthService', function(AuthService){
 	return {
 		scope: false,
 		restrict: 'A', 
-    link: function($scope, iElm, iAttrs, controller) {
-        if (iAttrs.restricted){
-            var accessible = false;
-            var role = AuthService.getUserRole();
+        link: function($scope, iElm, iAttrs, controller) {
+            if (iAttrs.restricted){
+                var accessible = false;
+                var role = AuthService.getUserRole();
 
-            var accessibleRoles = iAttrs.access.split(" ");
-           
-            angular.forEach(accessibleRoles, function(access){
-                 if(role == access){
-                    accessible = true;
+                var accessibleRoles = iAttrs.access.split(" ");
+               
+                angular.forEach(accessibleRoles, function(access){
+                     if(role == access){
+                        accessible = true;
+                    }
+                })
+
+                if(! accessible){
+                    angular.forEach(iElm.children(), function(elm){
+                        try{
+                            elm.remove();
+                        }catch(ignore){}
+                    });
+                    iElm.remove();           
                 }
-            })
-
-
-            if(! accessible){
-                angular.forEach(iElm.children(), function(elm){
-                    try{
-                        elm.remove();
-                    }catch(ignore){}
-                });
-                iElm.remove();           
             }
-        }
 
-    }
-	};
+        }
+   };
 }]);
-
-app.directive('barCodeImage', function(){
-
-    return {
-        restrict: 'A',
-        link: function($scope, iElm, iAttrs) {
-             $scope[iAttrs.barCodeImage] = iElm;
-        }
-    };
-});
 
 app.directive('barCode', function(barcodeService){
     return {
-        template: '<img id="barcode" bar-code-image="img" style="float:right;"></img>',
+        restrict: 'AE',
         link: function($scope, iElm, iAttrs, controller) {
-            var self = this;
-            self.fileName = "";
 
-            $scope.$watch(iAttrs.codeValue, function(value){
-                if(value === undefined) {
-                    return
-                }
-                self.fileName = value + ".png";
-                JsBarcode("#barcode", String(value), {
+            var self = {};
+            self.barCodeValue = iAttrs.codeValue;
+            self.img = iElm[0];
+          
+            function draw(v){       
+                console.log("draw the barcode")
+                JsBarcode(self.img, v, {
                     width: 2,
                     height: 120, 
                     displayValue: true,
                     ineColor: "#0cc"
-                });
-                
-            })   
-
-            $scope.barCodeDownload = function(){
-                barcodeService.download( $scope.img[0].src, self.fileName)
+                });  
             }
 
+            function isDefined(v){
+                return ! (angular.isUndefined(v) || v == null || v == "")
+            }
+
+            function handleBarcode() {
+                self.barCodeValue = iAttrs.codeValue;
+                if(isDefined(self.barCodeValue)){
+                    self.fileName = String(self.barCodeValue);
+                    draw(self.fileName);
+                }
+            }
+            handleBarcode();
+            iAttrs.$observe('codeValue', function(value){   
+                console.log("codeValue change")
+               handleBarcode();
+            })
+
+            $scope.$on('download-barcode', function(event, args){
+                console.log("broadcast to download ", args, ", and this fileName is ",self.fileName)
+                if(self.fileName == args.key){
+                    barcodeService.download(self.img.src, self.fileName + '.png')
+                }
+            })
         }
     };
 });
+
 
 app.directive('print', function(PrintService, CanvasService){
     // Runs during compile
@@ -91,7 +98,7 @@ app.directive('autofocus', ['$timeout', function($timeout) {
     link : function($scope, $element) {
       $timeout(function() {
         $element[0].focus();
-      });
+      }, 500);
     }
   }
 }]);

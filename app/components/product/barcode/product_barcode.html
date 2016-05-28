@@ -2,7 +2,7 @@
      layout="column" class="md-inline-form inputdemoBasicUsage" 
      style="width: 864px; 
             margin: auto;
-            padding-top: 20px;">
+            padding-top: 60px;">
 
   <md-toolbar class="light-blue">
     <h2 class="md-toolbar-tools">
@@ -21,9 +21,14 @@
                      border-color: #3F51B5;">
     <form name="userForm">
       <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-sm="">
+        <md-input-container class="md-block" flex="25" flex-gt-sm="">
           <label>訂單料號(掃碼讀入)</label>
-          <input ng-keydown="watchKey($event)" ng-model="product.reservbarcode">
+          <input autofocus ng-keydown="watchKey($event)" ng-model="product.reservbarcode">
+        </md-input-container>
+       <md-input-container class="md-block" flex-gt-sm="">
+          <label>備註</label>
+          <input ng-model="partno.note"
+                 style="color: #F44336;" disabled="">
         </md-input-container>
       </div>
 
@@ -34,14 +39,6 @@
                  style="color: #F44336;" disabled="">
         </md-input-container>
 
-         <md-input-container class="md-block" flex-gt-sm="">
-          <label>備註</label>
-          <input ng-model="partno.note"
-                 style="color: #F44336;" disabled="">
-        </md-input-container>
-      </div>
-
-      <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>客戶料號</label>
           <input ng-model="partno.externalpartno"
@@ -78,18 +75,16 @@
         </md-input-container>
       </div>
 
-      <div layout-gt-xs="row">
-       <md-input-container class="md-block" flex="25" flex-gt-sm="">
-          <label>貨品編號(自動生成)</label>
-          <input ng-model="barcode"
-                 style="color: #F44336;" disabled="">
-        </md-input-container>
-         <span flex>
-        <div bar-code code-value="barcode" class="no-code-value"></div>
-      </div>
-
     </form> 
   </md-content>
+
+<div layout-gt-xs="row" layout-align="center" ng-repeat="row in barcodeRows"> 
+   <div ng-repeat="obj in row" layout-gt-xs="row" layout-align="center" layout-align="center">
+     <img bar-code code-value="{{obj.storagebarcode}}" 
+          class="no-code-value"
+          ng-click="downloadBarcode(obj.storagebarcode)">
+  </div>
+</div>
 
   <md-button  class="md-raised md-primary" 
                   ng-click="barCodeDownload()"
@@ -103,9 +98,10 @@
     width: 36px; 
   }
   .no-code-value {
-    background-color: white;
+    /* background-color: white; */
     width: 350px;
     height: 120px;
     float:right;
   }
+
 </style>
