@@ -2,16 +2,25 @@ app.controller('AccountAddCtrl',function($scope, toastService, AuthService, Acco
 	$scope.privilegeMap = AccountService.privilegeMap;
 	$scope.psdLegel = function(psd){ AccountService.psdLegel(psd) };
 
-	$scope.signIn = function(user){
-		AuthService.register(user).then(function(){
+	function init(){
+		$scope.querying = false;
+		$scope.user = {}
+	}
+	init();
+
+	$scope.signIn = function(){
+		$scope.querying = true;
+		AuthService.register($scope.user).then(function(){
 			toastService.showSimpleToast("註冊成功", "success")
-			$state.reload();
+			$scope.querying = false;
 		}, function(err){
-			toastService.showSimpleToast(err, "error")
+			var errMsg = err.msg || "料號更新失敗"
+			toastService.showSimpleToast(errMsg, "error")
+			$scope.querying = false;
 		})
 	}
 
-	$scope.reload = function(){
-		$state.reload();
+	$scope.refresh = function(){
+		init();
 	}
 })

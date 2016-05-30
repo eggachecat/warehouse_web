@@ -1,32 +1,21 @@
 app.controller('LoginCtrl', ['$scope', 'barcodeService', 'toastService', 'PartnoService', 'AuthService', '$state', 
 	function($scope, barcodeService, toastService, PartnoService, AuthService, $state){
-		// PartnoService.sayHello();
-		$scope.order = {
-			editorId: 007,
-			companyId: 234,
-			customerId: 123,
-			remark:"hehe",
-		}
+		
+		$scope.querying = true;
 		$state.go("main.product_barcode"); 
 			// if not authed should be prevented
-		$scope.dirtyRow = undefined;
-
-		$scope.generateBarcode = function(){
-			$scope.order.barcode = barcodeService.generate();
-			toastService.showSimpleToast("Generate Barcode: " + $scope.order.barcode, 30000);
-		
-		}
+		$scope.querying = false;
 
 		$scope.onSubmit = function(user){
+			$scope.querying = true;
 			AuthService.login(user).then(function(data){
+				$scope.querying = false;
+				toastService.showSimpleToast("更新成功", "success");
 				$state.go("main.product_barcode");
 			}, function(error){
-				alert(error)
+				$scope.querying = false;
+				toastService.showSimpleToast(error, "error")
 			});
-		}
-
-		$scope.echo = function(){
-			console.log("ohla")
 		}
 	} 
 ]);

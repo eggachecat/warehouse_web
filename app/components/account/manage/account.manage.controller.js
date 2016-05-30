@@ -5,11 +5,13 @@ app.controller('AccountManageCtrl', function($scope, AuthService, AccountService
 		limit: 5,
 		page: 1
 	};	
-	
+	$scope.querying = false;
 
 	function getData(){
+		$scope.querying = true;
 		AccountService.read().then(function(data){
 			$scope.userList = data.list;
+			//$scope.querying = false;
 		})
 	}
 	getData();
@@ -23,7 +25,8 @@ app.controller('AccountManageCtrl', function($scope, AuthService, AccountService
 			toastService.showSimpleToast("更新成功", "success");
 			$state.reload();
 		}, function(err){
-			toastService.showSimpleToast(err, "error")
+			var errMsg = err.msg || "料號更新失敗"
+			toastService.showSimpleToast(errMsg, "error")
 		})
 	}
 

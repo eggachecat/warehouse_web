@@ -1,7 +1,9 @@
 
 <!-- Using Angular Material 6.1 + Jade Templates-->
+
 <div layout="column" layout-align="center center" layout-fill="layout-fill" id="se-login-form">
   <div layout="column" class="loginBox md-whiteframe-z1">
+   <md-progress-linear class="md-warn" md-mode="query" ng-show="querying"></md-progress-linear>
     <md-toolbar>
       <h2 class="md-toolbar-tools"><span>登入系統</span></h2>
     </md-toolbar>
@@ -15,7 +17,7 @@
         <input type="password" ng-model="user.password"/>
       </md-input-container>
       <div layout="row" layout-align="center center" style="padding-top:20px;">
-        <md-button class="md-raised md-primary" ng-click="onSubmit(user);user = {}">登入</md-button>
+        <md-button class="md-raised md-primary" ng-click="onSubmit(user);">登入</md-button>
         <div flex="flex"></div>
         <md-button href="" md-no-ink="md-no-ink">忘記密碼?</md-button>
       </div>

@@ -3,14 +3,13 @@
      style="width: 864px; 
             margin: auto;
             padding-top: 60px;">
-
+<md-progress-linear class="md-warn" md-mode="query" ng-show="querying"></md-progress-linear>
   <md-toolbar class="light-blue">
     <h2 class="md-toolbar-tools">
       <span>訂單信息</span>
       <span flex></span>
       <md-button class="md-raised md-warn" 
-                 ng-click="add(order)"
-                 ng-disabled="userForm.$invalid">新增料號</md-button>
+                 ng-click="refresh()">清空資料</md-button>
     </h2>
   </md-toolbar>
 
@@ -67,6 +66,10 @@
     </form>
   </md-content>
 
+  <md-button    class="md-raised md-success" 
+                  ng-click="add(order)"
+                  ng-disabled="userForm.$invalid"
+                  style="margin: 10px 0px 0px 0px;">新增料號</md-button>
 
   <md-button  class="md-raised md-primary" 
                   ng-click="downloadBarcode(barcode)"

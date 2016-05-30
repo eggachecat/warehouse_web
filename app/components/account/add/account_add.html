@@ -1,18 +1,17 @@
-<div ng-cloak="" 
-     layout="column" class="md-inline-form inputdemoBasicUsage" 
+<div ng-cloak="" layout-padding="" 
+     layout="column" class="md-inline-form" 
      style="width: 40%; 
             margin: auto;
             padding-top: 60px;">
-
+  <md-progress-linear class="md-warn" md-mode="query" ng-show="querying"></md-progress-linear>
   <md-toolbar class="light-blue">
     <h2 class="md-toolbar-tools">
       <span>新增帳戶</span>
       <span flex></span>
-       <md-button class="md-raised md-warn" ng-click="user={};rpassword=''">清空資料</md-button>
+      <md-button class="md-raised md-warn" 
+                 ng-click="refresh()">清空資料</md-button>
     </h2>
   </md-toolbar>
-
-
   <md-content layout-padding="" 
               style="border-width: 0px 2px 2px 2px; 
                      border-style: solid;
@@ -59,27 +58,22 @@
          <span class="err" 
          ng-show="psdLegel(user.password) && psdLegel(rpassword) && user.password !== rpassword">密碼不一致</span>
       </div>
-    
+     
 
     </form>
   </md-content>
 
-  <md-button  class="md-raised md-primary" 
-                  ng-disabled="userForm.$invalid"
-                  ng-click="signIn(user);"
-                  style="margin: 10px 0px 0px 0px;">新增</md-button>
+  <md-button class="md-raised md-success" 
+             ng-disabled="userForm.$invalid"
+             ng-click="signIn(user);"
+             style="margin: 10px 0px 0px 0px;">新增帳戶</md-button>
 
-    <md-button  class="md-raised md-primary" 
-          
-                  ng-click="reload();"
-                  style="margin: 10px 0px 0px 0px;">reload</md-button>
+
 
 </div>
 
 <style type="text/css" media="screen">
-  .inputdemoBasicUsage .md-datepicker-button {
-    width: 36px; 
-  }
+  
   .no-code-value {
     background-color: white;
     width: 350px;
