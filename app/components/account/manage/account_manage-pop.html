@@ -98,8 +98,38 @@
 
         <md-tab label="解鎖帳戶">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Tab Three</h1>
-           
+            <h2>解鎖帳戶</h2>
+              <div layout-gt-xs="row">
+                <md-input-container class="title-column">
+                  <label>title</label>
+                  <input value="新的密碼" disabled>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="">
+                  <label>new psd</label>
+                  <input ng-model="psdUser.password" type="password" ng-disabled="user.active" >
+                </md-input-container>
+              </div>
+
+              <div layout-gt-xs="row">
+                <md-input-container class="title-column">
+                  <label>title</label>
+                  <input value="密碼確認" disabled>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="">
+                  <label>repeat psd</label>
+                  <input ng-model="rpassword" type="password" ng-disabled="user.active" >
+                </md-input-container>
+              </div>
+              <div layout-gt-xs="row">
+                <span class="err" 
+                 ng-show="psdUser.password !== rpassword">
+                  兩次密碼不一致
+                </span>
+              </div>
+            <div layout-gt-xs="row">
+              <span flex></span>
+             <md-button ng-disabled="user.active" ng-click="unlock()">解鎖帳戶</md-button>
+            </div>
           </md-content>
         </md-tab>
 

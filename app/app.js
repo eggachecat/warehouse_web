@@ -68,7 +68,6 @@ app.config(['$stateProvider', '$urlRouterProvider' , '$mdThemingProvider', '$loc
 app.run(function ($rootScope, $state, AuthService, AUTH_EVENTS, AUTH_ROLES) {
 	$rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
 		if (!AuthService.isAuthenticated()) {
-			console.log(next.name);
 			if (next.name !== 'login' && next.name !== 'register') {
 				event.preventDefault();
 				$state.go('login');

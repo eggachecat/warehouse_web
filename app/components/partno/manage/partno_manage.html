@@ -1,12 +1,7 @@
-<!-- <md-input-container class="md-icon-float md-block"
-                    style="margin: 40px 350px 10px 350px;">
-  <md-icon md-svg-src="./bower_components/ionicons/src/ios-search.svg" class="name"></md-icon>
-  <label>搜索關鍵字</label>
-  <input ng-model="keyword" type="text" autofocus> 
-</md-input-container> -->
 
 <div class="manage-partno"
      style="width: 40%; margin: auto; margin-top:40px;
+            margin-bottom: 25px;
             border: 2px solid #3F51B5;">  
 
   <md-toolbar class="light-blue md-table-toolbar">
@@ -38,7 +33,7 @@
     </div>
   </form>
 
-  <div layout-gt-xs="row">
+  <div layout-gt-xs="row" style="margin-top: -25px;">
     <span flex></span>
     <md-button class="md-icon-button md-accent" md-accent aria-label="More"  ng-click="addColumn()">
      <md-icon md-svg-icon="./bower_components/ionicons/src/plus-round.svg"></md-icon>
@@ -46,39 +41,101 @@
   </div>
   </div>
 
-  <!-- exact table from live demo -->
-  <md-table-container>
-    <table md-table md-progress="promise">
-      <thead md-head md-order="internalpartno" md-on-reorder="onReorder">
-        <tr md-row>
-          <th md-column md-order-by="internalpartno"><span>內部料號</span></th>
-          <th md-column md-order-by="externalpartno">外部料號</th>
-          <th md-column md-order-by="itemname">品名</th>
-          <th md-column md-order-by="note">備註</th>
-          <th md-column md-order-by="reservbarcode">條形碼</th>
-        </tr>
-      
-      </thead>
-      <tbody md-body>
-        <tr md-row ng-repeat="result in results | 
-                              filter: filter.search | 
-                              orderBy: query.order | 
-                              limitTo: query.limit : (query.page -1) * query.limit">
-          <td md-cell>{{result.internalpartno}}</td>
-          <td md-cell>{{result.externalpartno}}</td>
-          <td md-cell>{{result.itemname}}</td>
-          <td md-cell>{{result.note}}</td>
-          <td md-cell>{{result.reservbarcode}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </md-table-container>
+<div ng-repeat="result in results" ng-init="editable=false"
+     style="width: 80%; margin: auto; margin-bottom: 25px;">
+  <md-toolbar class="light-blue">
+    <h2 class="md-toolbar-tools">
+      <span>產品-{{result.reservbarcode}}</span>
+      <span flex></span>
+      <span>編輯</span>&nbsp;&nbsp;
+      <md-switch class="md-success"  ng-model="editable" aria-label="Switch"></md-switch>
+    </h2>
+  </md-toolbar>
 
-  <md-table-pagination  md-limit="query.limit" 
-                        md-page="query.page" 
-                        md-options="[5,6,7]"
-                        md-page-select>
-  </md-table-pagination>
+
+  <md-content layout-padding="" 
+              style="border-width: 0px 2px 2px 2px; 
+                     border-style: solid;
+                     overflow: hidden;
+                     border-color: #3F51B5;">
+    <form name="userForm">
+
+     <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>品名</label>
+          <input ng-model="result.itemname" ng-disabled="!editable" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>條形碼</label>
+          <input ng-model="result.reservbarcode" disabled="" required>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>場內料號</label>
+          <input ng-model="result.internalpartno" ng-disabled="!editable" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>客戶料號</label>
+          <input ng-model="result.externalpartno" ng-disabled="!editable" required>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row"> 
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>備註</label>
+          <input ng-model="result.note" required ng-disabled="!editable">
+        </md-input-container>
+      </div>
+
+      <div layout="row" layout-sm="column" layout-align="end center" layout-wrap>
+        <md-button class="md-raised" 
+                    ng-disabled="(userForm.$invalid)">
+          取消
+        </md-button>
+        <md-button  class="md-raised md-primary" 
+                     ng-click="update(result)"
+                     ng-disabled="(userForm.$invalid) || !editable">
+                     更新
+        </md-button>
+    </div>
+
+    </form>
+  </md-content>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <style type="text/css" media="screen">

@@ -17,4 +17,8 @@ app.service('AccountService', function(AuthService, DataService, $q, $http, API_
 	this.read = function(){
 		return DataService.get("/user/list")
 	}
+
+	this.unlock = function(user){
+		return DataService.post("/user/unlock", user)
+	}
 })

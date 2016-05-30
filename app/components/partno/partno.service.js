@@ -10,5 +10,11 @@ app.service('PartnoService', function(DataService, CommonService, $http){
 		console.log(params)
 		return DataService.get("/warehouse/list", params)
 	}
+
+	this.update = function(obj){
+		console.log(obj)
+		obj.type = "resvobject"
+		return DataService.post("/warehouse/update", obj);
+	}
 })
 

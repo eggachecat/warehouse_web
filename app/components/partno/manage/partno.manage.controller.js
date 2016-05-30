@@ -1,12 +1,7 @@
-app.controller('PartnoManageCtrl', ['$scope', 'barcodeService', 'toastService', 'PartnoService', 
-	function($scope, barcodeService, toastService, PartnoService){
+app.controller('PartnoManageCtrl', ['$scope', 'barcodeService', 'toastService', 'PartnoService', '$state',
+	function($scope, barcodeService, toastService, PartnoService, $state){
 		// PartnoService.sayHello();
-		$scope.selected = [];
-		$scope.tags = [];
-		$scope.query = {
-			limit: 5,
-			page: 1
-		};
+		
 
 		$scope.columnMap = {internalpartno: "內部料號", externalpartno: "外部料號", itemname: "產品名稱", reservbarcode: "料號條碼"};
 		$scope.columns = ["reservbarcode", "internalpartno", "externalpartno", "itemname"]
@@ -33,7 +28,17 @@ app.controller('PartnoManageCtrl', ['$scope', 'barcodeService', 'toastService', 
 	        return new Array(n);
 	    };
 
-		$scope.desserts = {}
+		$scope.update = function(product){
+			PartnoService.update(product)
+			.then(function(res){
+				console.log(res)
+				toastService.showSimpleToast("料號更新成功", "success")
+				$state.reload();
+			}, function(err){
+				var errMsg = err.message || "料號更新失敗"
+				toastService.showSimpleToast(errMsg, "error")
+			});
+		}
 
 		
 		

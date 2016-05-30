@@ -27,12 +27,13 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state,
 		// Set the token as header for your requests!
 		$http.defaults.headers.common.token = authToken;
 
-		// DataService.post("/user/token/valid").then(function(){
-		// 	isAuthenticated = true;
-		// 	$state.go("main.product_barcode"); 
-		// }, function(){
-		// 	alert("re-login");
-		// })
+		DataService.post("/user/token/valid").then(function(){
+			console.log("!!")
+			isAuthenticated = true;
+			//$state.go("main.product_barcode"); 
+		}, function(){
+			alert("re-login");
+		})
 	}
  
  	function loadUserCredentials() {

@@ -1,4 +1,4 @@
-app.controller('AccountManageCtrl', function($scope, AuthService, AccountService, toastService, $mdDialog){
+app.controller('AccountManageCtrl', function($scope, AuthService, AccountService, toastService, $mdDialog, $state){
 	$scope.privilegeMap = AccountService.privilegeMap;
 	$scope.query = {
 		order: 'username',
@@ -20,7 +20,8 @@ app.controller('AccountManageCtrl', function($scope, AuthService, AccountService
 	self.save = function(user){
 		AccountService.update(user).then(function(){
 			getData();
-			toastService.showSimpleToast("更新成功", "success")
+			toastService.showSimpleToast("更新成功", "success");
+			$state.reload();
 		}, function(err){
 			toastService.showSimpleToast(err, "error")
 		})
@@ -45,6 +46,10 @@ app.controller('AccountManageCtrl', function($scope, AuthService, AccountService
 		  			}else {
 		  				$mdDialog.hide($scope.infUser); }
 		  		};
+
+		  		$scope.unlock = function(){
+		  			AccountService.unlock($scope.psdUser);
+		  		}
 		  		
 			  	$scope.cancel = function() { $mdDialog.cancel(); };
 			},
