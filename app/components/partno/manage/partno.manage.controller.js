@@ -15,7 +15,12 @@ app.controller('PartnoManageCtrl', ['$scope', 'barcodeService', 'toastService', 
 		$scope.search = function(){
 			PartnoService.read($scope.searchObj).then(function(res){
 				$scope.results = res.data;
-				toastService.showSimpleToast("更新成功", "success")
+				if(res.data.length > 0) {
+					toastService.showSimpleToast("獲取資料成功", "success")
+				}else{
+					toastService.showSimpleToast("查無資料", "error")
+				}
+
 			}, function(err){
 				toastService.showSimpleToast(err, "error")
 			})

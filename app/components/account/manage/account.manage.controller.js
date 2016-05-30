@@ -22,10 +22,10 @@ app.controller('AccountManageCtrl', function($scope, AuthService, AccountService
 	self.save = function(user){
 		AccountService.update(user).then(function(){
 			getData();
-			toastService.showSimpleToast("更新成功", "success");
+			toastService.showSimpleToast("帳戶資料更新成功", "success");
 			$state.reload();
 		}, function(err){
-			var errMsg = err.msg || "料號更新失敗"
+			var errMsg = err.msg || "帳戶資料更新失敗"
 			toastService.showSimpleToast(errMsg, "error")
 		})
 	}

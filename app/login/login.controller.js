@@ -10,7 +10,7 @@ app.controller('LoginCtrl', ['$scope', 'barcodeService', 'toastService', 'Partno
 			$scope.querying = true;
 			AuthService.login(user).then(function(data){
 				$scope.querying = false;
-				toastService.showSimpleToast("更新成功", "success");
+				toastService.showSimpleToast("登入成功", "success");
 				$state.go("main.product_barcode");
 			}, function(error){
 				$scope.querying = false;

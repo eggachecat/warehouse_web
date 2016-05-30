@@ -22,10 +22,10 @@ app.controller('ProductUpdateCtrl', ['$scope', 'toastService', 'ProductService',
 			ProductService.update_product($scope.productInfo)
 			.then(function(res){
 				console.log(res)
-				toastService.showSimpleToast("產品出庫成功", "success")
+				toastService.showSimpleToast("產品更新成功", "success")
 				init();
 			}, function(err){
-				var errMsg = err.message || "產品出庫失敗"
+				var errMsg = err.message || "產品更新失敗"
 				toastService.showSimpleToast(errMsg, "error")
 			});
 		}
