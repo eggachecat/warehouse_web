@@ -61,7 +61,7 @@
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>多少份</label>
+          <label>每份多少數量</label>
           <input ng-model="product.numperitem" type="number" required>
         </md-input-container>
        
@@ -79,19 +79,61 @@
   </md-content>
 
 <div layout-gt-xs="row" layout-align="center" ng-repeat="row in barcodeRows"> 
-   <div ng-repeat="obj in row" layout-gt-xs="row" layout-align="center" layout-align="center">
+  <div ng-repeat="obj in row" layout-gt-xs="row" layout-align="center" layout-align="center">
      <img bar-code code-value="{{obj.storagebarcode}}" 
           class="no-code-value"
           ng-click="downloadBarcode(obj.storagebarcode)">
   </div>
 </div>
 
-  <md-button  class="md-raised md-primary" 
+<md-button  class="md-raised md-primary" 
                   ng-click="barCodeDownload()"
                   ng-disabled="(userForm.$invalid) || (!products.barcode)"
                   style="margin: 10px 0px 0px 0px;">打印條形碼</md-button>
 
 </div>
+
+
+ <md-content layout-padding=""  
+             ng-repeat="obj in barcodeObjs" 
+             download-item="{{obj.storagebarcode}}" 
+             ng-click="download(obj.storagebarcode)" style="width:80%; margin: auto; margin-top: 10px;  box-shadow: 5px 5px grey;">
+
+
+  <div layout-gt-xs="row" layout-align="center">
+     <md-input-container md-no-float class="md-block" flex-gt-sm="">
+        <span>品名</span>
+        <input ng-model="obj.itemname" placeholder="">
+      </md-input-container>
+      <md-input-container md-no-float class="md-block" flex-gt-sm="">
+        <span>數量</span>
+        <input ng-model="obj.numperitem" placeholder="">
+      </md-input-container>
+
+  </div>
+      
+      
+  <div layout-gt-xs="row" layout-align="center"> 
+      <md-input-container md-no-float class="md-block" flex-gt-sm="">
+        <span>內部料號</span>
+        <input ng-model="obj.internalpartno" placeholder="">
+      </md-input-container>
+
+      <md-input-container md-no-float class="md-block" flex-gt-sm="">
+        <span>外部料號</span>
+        <input ng-model="obj.externalpartno" placeholder="">
+      </md-input-container>
+      
+  </div>
+
+  <div layout-gt-xs="row" layout-align="center"> 
+    <canvas bar-code-form code-value="{{obj.storagebarcode}}"></canvas>
+  </div>
+
+ </md-content>
+
+
+
 
 <style type="text/css" media="screen">
   .inputdemoBasicUsage .md-datepicker-button {

@@ -200,23 +200,48 @@ app.factory('PrintService', ['$mdDialog', '$mdMedia', function($mdDialog, $mdMed
 	};
 }])
 
-app.factory('CommonService', ['$http', function($http){
+app.service('CommonService', ['$http', 'FileSaver', '$rootScope', function($http, FileSaver, $rootScope){
 	var rootUrl = "http://private-a4897-warehousebackend.apiary-mock.com/url/list";
 	var serverUrl = "140.138.17.10:5000";
 
-	var getServerUrl = function(){
+	function dataURLToBlob(dataURL) {
+        var BASE64_MARKER = ';base64,';
+      
+        var parts = dataURL.split(BASE64_MARKER);
+        var contentType = parts[0].split(':')[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+
+        var uInt8Array = new Uint8Array(rawLength);
+
+        for (var i = 0; i < rawLength; ++i) {
+          uInt8Array[i] = raw.charCodeAt(i);
+        }
+
+        return new Blob([uInt8Array], {type: contentType});
+    }
+
+
+	this.getServerUrl = function(){
 		console.log("serverUrl")
 		$http.get(rootUrl).then(function(res){
 			serverUrl = res.data.server;
 			console.log(serverUrl)
 		})
 	}
-	
-	return {
-		getRequestUrl: function(){
-			return serverUrl;
-		}
-	};
+
+	this.download = function(dataSrc, fileName){        
+        FileSaver.saveAs(dataURLToBlob(dataSrc),  fileName)
+    }
+
+    this.isDefined = function(v){
+        return ! (angular.isUndefined(v) || v == null || v == "")
+    }
+
+    this.callToDownload = function(fileName){
+    	$rootScope.$broadcast('download-item', {key: fileName});
+    }
+
 }])
 app.factory('DataService', ['API_ENDPOINT', '$q', '$http', function(API_ENDPOINT, $q, $http){
 	
