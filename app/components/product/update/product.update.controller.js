@@ -8,18 +8,18 @@ app.controller('ProductUpdateCtrl', ['$scope', 'toastService', 'ProductService',
 		}
 		init();
 
-		$scope.watchKey = function(e){
-			if(e.keyCode == 9 || e.keyCode == 13){ // tab keyCode
-				ProductService.read_product($scope.productInfo)
+		function search(){
+			ProductService.read_product($scope.productInfo)
 				.then(function(res){
-					$scope.productInfo = res.data[0];
-					$scope.productInfo.location = $scope.productInfo.itemlocationname  // backend-problem
+					$scope.results = res.data;
+					//$scope.productInfo.location = $scope.productInfo.itemlocationname  // backend-problem
 				})
-			}
 		}
 
-		$scope.update = function(){
-			ProductService.update_product($scope.productInfo)
+		$scope.search = search;
+
+		$scope.update = function(result){
+			ProductService.update_product(result)
 			.then(function(res){
 				console.log(res)
 				toastService.showSimpleToast("產品更新成功", "success")
