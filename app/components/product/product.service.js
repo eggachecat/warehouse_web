@@ -1,16 +1,33 @@
 app.service('ProductService', function(DataService, CommonService, $http){
 
-	
+	function cleanParams(obj){
+		var cleanObj = {}
+		for (var prop in obj) {
+		    if (!obj.hasOwnProperty(prop)) {
+		        //The current property is not a direct property of p
+		        continue;
+		    }
+		    //Do your logic with the property here
+		    if(obj[prop]) {
+		    	cleanObj[prop] = obj[prop]
+		    };
+		}
+		return cleanObj;
+
+	}
+	// partno 59f2c005461cde14
+	// storage 2e04daf8bd02cbd8
+	// caixinru
 	this.read_partno = function(params){
 		params.type = "resvobject"
-		console.log(params)
-		return DataService.get("/warehouse/list", params)
+		console.log(cleanParams(params))
+		return DataService.get("/warehouse/list", cleanParams(params))
 	}
 
 	this.read_product = function(params){
 		params.type = "storage"
-		console.log(params)
-		return DataService.get("/warehouse/list", params)
+		console.log(cleanParams(params))
+		return DataService.get("/warehouse/list", cleanParams(params))
 	}
 
 	this.create_storage = function(data){
@@ -31,4 +48,7 @@ app.service('ProductService', function(DataService, CommonService, $http){
 		return DataService.post("/warehouse/export", obj);
 	}
 })
+
+
+
 
