@@ -31,6 +31,7 @@ app.controller('ProductUpdateCtrl', ['$scope', 'toastService', 'ProductService',
 
 
 		$scope.update = function(result){
+			result.numperitem = result.realnumperitem; // adjust-backend-trick
 			ProductService.update_product(result)
 			.then(function(res){
 				console.log(res)
