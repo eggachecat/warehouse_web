@@ -3,7 +3,7 @@
      style="width: 864px; 
             margin: auto;
             padding-top: 60px;">
-
+   <md-progress-linear class="md-warn" md-mode="query" ng-show="querying"></md-progress-linear>
   <md-toolbar class="light-blue">
     <h2 class="md-toolbar-tools">
       <span>產品入庫</span>
@@ -47,7 +47,7 @@
       <div layout-gt-xs="row"> 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>貨品數量</label>
-          <input ng-model="productInfo.num"
+          <input ng-model="productInfo.realnumperitem"
                  style="color: #F44336;"  disabled="">
         </md-input-container>
     
@@ -59,7 +59,7 @@
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>存放位置</label>
-          <input ng-model="productInfo.itemlocationname" 
+          <input ng-model="productInfo.location" 
                  style="color: #F44336;" disabled="">
         </md-input-container>
       </div>

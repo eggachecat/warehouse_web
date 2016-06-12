@@ -13,10 +13,10 @@ app.controller('ProductBarcodeCtrl', function($scope, CommonService, toastServic
 		if(e.keyCode == 9 || e.keyCode == 13){ // tab keyCode
 			ProductService.read_partno($scope.product)
 			.then(function(res){
-				$scope.partno = res.data[0];
+				$scope.product = res.data[0];
 			})
 		}
-	}
+	} 
 
 
 	$scope.createStorage = function(){

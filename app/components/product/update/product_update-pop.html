@@ -12,11 +12,18 @@
 	      	 	<md-input-container class="md-block" flex-gt-sm="">
 		          	<label>訂單料號</label>
 		          	<input ng-model="result.reservbarcode"
-		                 style="color: #F44336;">
-		        </md-input-container>
+		                 style="color: #F44336;" disabled="">
+		        </md-input-container>	             
+	        </div>
+
+	        <div layout-gt-xs="row">
 		        <md-input-container class="md-block" flex-gt-sm="">
-		          <label>產品料號</label>
-		          <input ng-model="result.storagebarcode"  style="color: #F44336;">
+		          <label>倉庫產品條碼</label>
+		          <input ng-model="result.storagebarcode"  style="color: #F44336;" disabled="">
+		        </md-input-container>	
+		        <md-input-container class="md-block" flex-gt-sm="">
+		          <label>負責人</label>
+		          <input ng-model="result.responsor"  style="color: #F44336;" disabled="">
 		        </md-input-container>		      
 	        </div>
 

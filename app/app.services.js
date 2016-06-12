@@ -4,7 +4,7 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state,
 	var userRole = AUTH_ROLES["privilege-3"];// Guest
 	var authToken = "undefined";
 
-	function decodeData(token) {
+	function decodeData(token) { 
 	  var tokenData = token.split('.')[1];
 	  //bass64 decode
 	  return JSON.parse(window.atob(tokenData));	

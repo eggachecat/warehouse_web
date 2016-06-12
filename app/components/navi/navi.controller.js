@@ -1,7 +1,7 @@
 app.controller('NavCtrl', ['$scope', "$state", 'AuthService', function($scope, $state, AuthService){
 	$scope.navigation = [
-							{ state: "main.partno_add" },
-							{ state: "main.partno_manage", restricted: true, access: "role-admin" },
+							{ state: "main.partno_add", restricted: true, access: "role-admin role-normal"  },
+							{ state: "main.partno_manage", restricted: true, access: "role-admin role-normal" },
 							{ state: "main.product_barcode" },
 							{ state: "main.product_enter" },
 							{ state: "main.product_out" },
