@@ -1,17 +1,19 @@
-<div ng-cloak="" layout-padding="" 
+<div ng-cloak="" 
      layout="column" class="md-inline-form" 
      style="width: 40%; 
-            margin: auto;
-            padding-top: 60px;">
+            margin: auto; margin-top: 100px;">
+ 
   <md-progress-linear class="md-warn" md-mode="query" ng-show="querying"></md-progress-linear>
-  <md-toolbar class="light-blue">
-    <h2 class="md-toolbar-tools">
+
+  <md-toolbar class="light-blue md-table-toolbar">
+    <div class="md-toolbar-tools">
       <span>新增帳戶</span>
       <span flex></span>
       <md-button class="md-raised md-warn" 
                  ng-click="refresh()">清空資料</md-button>
-    </h2>
+    </div>
   </md-toolbar>
+
   <md-content layout-padding="" 
               style="border-width: 0px 2px 2px 2px; 
                      border-style: solid;
@@ -73,12 +75,6 @@
 </div>
 
 <style type="text/css" media="screen">
-  
-  .no-code-value {
-    background-color: white;
-    width: 350px;
-    height: 10px;
-  }
   .err {
     color:red;
   }

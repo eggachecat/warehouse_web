@@ -11,7 +11,7 @@ app.controller('AccountManageCtrl', function($scope, AuthService, AccountService
 		$scope.querying = true;
 		AccountService.read().then(function(data){
 			$scope.userList = data.list;
-			//$scope.querying = false;
+			$scope.querying = false;
 		})
 	}
 	getData();

@@ -30,9 +30,10 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state,
 		DataService.post("/user/token/valid").then(function(){
 			console.log("!!")
 			isAuthenticated = true;
-			//$state.go("main.product_barcode"); 
 		}, function(){
 			alert("re-login");
+			isAuthenticated = false;
+			$state.go("login"); 
 		})
 	}
  
@@ -63,11 +64,12 @@ app.service('AuthService', function($q, $http, API_ENDPOINT, AUTH_ROLES, $state,
 			$http.post(API_ENDPOINT.url + '/user/add', user).then(function(result) {
 				console.log(result)
 				if (result.data.valid) {
-					resolve(result.data.msg);
+					resolve(result.data);
 				} else {
-					reject(result.data.msg);
+					reject(result.data);
 				}
 			}, function(err){
+				reject(err);
 				console.log(err)
 			});
 		});

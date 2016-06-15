@@ -14,7 +14,8 @@ app.controller('AccountAddCtrl',function($scope, toastService, AuthService, Acco
 			toastService.showSimpleToast("註冊成功", "success")
 			$scope.querying = false;
 		}, function(err){
-			var errMsg = err.msg || "註冊帳戶失敗"
+			console.log(err)
+			var errMsg = err.msg || "註冊帳戶失敗" 
 			toastService.showSimpleToast(errMsg, "error")
 			$scope.querying = false;
 		})
