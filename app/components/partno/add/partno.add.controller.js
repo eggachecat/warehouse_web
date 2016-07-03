@@ -1,5 +1,5 @@
-app.controller('PartnoAddCtrl', ['$scope', 'barcodeService', 'toastService', 'PartnoService',
-	function($scope, barcodeService, toastService, PartnoService){
+app.controller('PartnoAddCtrl', ['$scope', 'CommonService', 'toastService', 'PartnoService',
+	function($scope, CommonService, toastService, PartnoService){
 		// PartnoService.sayHello();
 		
 		function init(){
@@ -8,7 +8,7 @@ app.controller('PartnoAddCtrl', ['$scope', 'barcodeService', 'toastService', 'Pa
 		}
 		init();
 
-		$scope.downloadBarcode = function(filename){ barcodeService.callToDownload(filename); }
+		$scope.downloadBarcode = function(filename){ CommonService.callToDownload(filename); }
 
 		$scope.add = function(order){
 			$scope.querying = true;
@@ -27,3 +27,4 @@ app.controller('PartnoAddCtrl', ['$scope', 'barcodeService', 'toastService', 'Pa
 
 	} 
 ]); 
+ 

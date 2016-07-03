@@ -19,7 +19,7 @@
                      border-style: solid;
                      overflow: hidden;
                      border-color: #3F51B5;">
-    <form name="userForm" print>
+    <form name="userForm" print> 
      <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>品名</label>
@@ -58,13 +58,52 @@
         </md-input-container>
         <span flex>
         
-        <canvas bar-code-form code-value="{{barcode}}" class="no-code-value"></img>
-    
-
+        <canvas bar-code-form code-value="{{barcode}}" class="no-code-value"></img>   
       </div>
  
     </form>
   </md-content>
+
+  
+  <md-content layout-padding="" 
+             download-item="{{barcode}}"  
+             ng-show="barcode" style="width:80%; margin: auto; margin-top: 10px;  box-shadow: 5px 5px grey;">
+
+
+    <div layout-gt-xs="row" layout-align="center">
+       <md-input-container md-no-float class="md-block" flex-gt-sm="">
+          <span>品名</span>
+          <input ng-model="order.itemname" placeholder="">
+        </md-input-container>
+    </div>
+        
+        
+    <div layout-gt-xs="row" layout-align="center"> 
+        <md-input-container md-no-float class="md-block" flex-gt-sm="">
+          <span>內部料號</span>
+          <input ng-model="order.internalpartno" placeholder="">
+        </md-input-container>
+
+        <md-input-container md-no-float class="md-block" flex-gt-sm="">
+          <span>外部料號</span>
+          <input ng-model="order.externalpartno" placeholder="">
+        </md-input-container>
+        
+    </div>
+
+    <div layout-gt-xs="row" layout-align="center"> 
+      <canvas bar-code-form code-value="{{barcode}}"></canvas>
+    </div>
+
+   </md-content>
+ 
+
+
+
+ 
+
+
+
 
   <md-button    class="md-raised md-success" 
                   ng-click="add(order)"

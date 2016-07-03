@@ -16,7 +16,7 @@ app.controller('ProductBarcodeCtrl', function($scope, CommonService, toastServic
 				$scope.product = res.data[0];
 			})
 		}
-	} 
+	}  
 
 
 	$scope.createStorage = function(){
